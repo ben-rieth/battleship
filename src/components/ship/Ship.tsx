@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import HitIcon from './../../assets/images/hit.svg';
+
 type ShipProps = {
     length: number;
 }
@@ -24,7 +26,7 @@ const Ship = ({length} : ShipProps) => {
         if(isSunk()) {
             console.log("Ship Sunk");
         }
-        
+
     }, [ship])
 
     return (
@@ -32,9 +34,11 @@ const Ship = ({length} : ShipProps) => {
             {ship.map((pos, index) => {
                 return (
                     <div key={index} 
-                        className="w-12 h-12 bg-green-300 outline outline-2 outline-green-700 mt-px ml-px"
-                        onClick={() => hitShip(index)}>
-                        <p>{pos === -1 ? "hit" : ''}</p>  
+                        className="w-12 h-12 bg-green-300 outline outline-[3px] outline-green-700 mt-px ml-px"
+                        onClick={() => hitShip(index)}
+                        data-testid="compartment"
+                    >
+                        {pos === -1 ? <img src={HitIcon} alt="hit" /> : ""}
                     </div>)
             })}
         </div>
