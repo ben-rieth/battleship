@@ -10,7 +10,7 @@ const Board = () => {
     }
 
     return (
-        <main className="grid grid-cols-10 gap-0 w-fit">
+        <main className="grid grid-cols-10 w-fit">
             {boardGrid}
         </main>
     );

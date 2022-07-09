@@ -1,6 +1,6 @@
 const BoardSquare = () => {
     return (
-        <div className="w-12 h-12 border-2 border-black"/>
+        <div className="w-12 h-12 outline outline-2"/>
     )
 }
 
