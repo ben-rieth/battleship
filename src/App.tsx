@@ -1,9 +1,9 @@
 import React from 'react';
-import Ship from './components/ship/Ship';
+import Board from './components/board/Board';
 
 function App() {
   return (
-    <Ship length={3} />
+    <Board />
   );
 }
 
