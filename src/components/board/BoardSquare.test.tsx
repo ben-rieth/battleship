@@ -6,6 +6,6 @@ import BoardSquare from './BoardSquare';
 
 describe("Testing Board Component", () => {
     it("renders", () => {
-        render(<BoardSquare row={0} col={0}/>);
+        render(<BoardSquare status={0}/>);
     })
 })
