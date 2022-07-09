@@ -1,10 +1,9 @@
 import React from 'react';
+import Ship from './components/ship/Ship';
 
 function App() {
   return (
-    <div>
-      <h1 className="text-blue-500 text-3xl">Battleship: Coming Soon</h1>
-    </div>
+    <Ship length={3} />
   );
 }
 
