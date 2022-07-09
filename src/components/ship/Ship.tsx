@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type ShipProps = {
     length: number;
@@ -15,6 +15,17 @@ const Ship = ({length} : ShipProps) => {
             return pos;
         }))
     }
+
+    useEffect(() => {
+        const isSunk = () : boolean => {
+            return ship.every((pos) => pos === -1);
+        }
+
+        if(isSunk()) {
+            console.log("Ship Sunk");
+        }
+        
+    }, [ship])
 
     return (
         <div data-testid="ship">
