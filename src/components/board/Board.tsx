@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { isConstructorDeclaration } from "typescript";
 import BoardSquare from "./BoardSquare";
 
 const INITIAL_BOARD = Array(10).fill(Array(10).fill(0));
@@ -34,6 +33,32 @@ const Board = () => {
                 })
             })
         )
+    }
+
+    const attack = (row: number, col: number) => {
+        if(board[row][col] === -1 || board[row][col] === -2) {
+            return;
+        }
+
+        let result : number;
+        if(board[row][col] === 1) {
+            //a ship is hit
+            result = -1;
+        } else {
+            //a miss
+            result = -2;
+        }
+
+        setBoard(
+            board.map((boardRow, rowIndex) => {
+                return boardRow.map((space, colIndex) => {
+                    if(rowIndex === row && colIndex === col) {
+                        return result;
+                    }
+                    return space;
+                });
+            })
+        );
     }
 
     return (
