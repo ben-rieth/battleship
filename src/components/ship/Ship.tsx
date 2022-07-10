@@ -40,7 +40,7 @@ const Ship = ({ship, onClick} : ShipProps) => {
                 {ship.status.map((pos, index) => {
                     return (
                         <div key={index} 
-                            className={`w-12 h-12 outline outline-2 bg-${ship.color}-300 outline-${ship.color}-700`}
+                            className={`w-12 h-12 outline outline-2 bg-${ship.color}-300 outline-${ship.color}-700 opacity-50`}
                             onClick={onClick}
                             data-testid="compartment"
                         >

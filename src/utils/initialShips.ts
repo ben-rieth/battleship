@@ -42,7 +42,7 @@ const INITIAL_SHIPS : ShipData[] = [
         type: "Carrier",
         color: "blue",
         currentDirection: "vertical",
-        boardX: 7,
+        boardX: 6,
         boardY: 2,
         status: [0, 0, 0, 0, 0]
     }

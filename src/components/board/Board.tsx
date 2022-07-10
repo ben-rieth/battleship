@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ShipData from "../../services/types/ShipData";
 import INITIAL_SHIPS from "../../utils/initialShips";
 import Ship from "../ship/Ship";
@@ -10,53 +10,17 @@ const Board = () => {
     const [board, setBoard] = useState<number[][]>(INITIAL_BOARD);
     const [ships, setShips] = useState<ShipData[]>(INITIAL_SHIPS);
 
-    const boardSquareClear = (row: number, col: number) : boolean => {
+    const boardSquareClear = useCallback((row: number, col: number) : boolean => {
         if(board[row][col] === 0) {
             return true;
         }
 
         return false;
-    }
+    }, [board]);
 
-    const placeShipHorizontal = (row: number, col: number, shipSize: number) => {
-        for (let i = col; i < col+shipSize; i++) {
-            if (!boardSquareClear(row, i)) {
-                console.log("Invalid placement");
-                return;
-            }
-        }
-        setBoard(
-            board.map((bRow, rIndex) => {
-                return bRow.map((space, cIndex) => {
-                    if (rIndex === row && cIndex >= col && cIndex < col + shipSize) {
-                        return 1;
-                    }
+    
 
-                    return space;
-                })
-            })
-        )
-    }
-
-    const placeShipVertical = (row: number, col: number, shipSize: number) => {
-        for (let i = row; i < row+shipSize; i++) {
-            if (!boardSquareClear(i, col)) {
-                console.log("Invalid placement");
-                return;
-            }
-        }
-        setBoard(
-            board.map((bRow, rIndex) => {
-                return bRow.map((space, cIndex) => {
-                    if (cIndex === col && rIndex >= row && rIndex < row + shipSize) {
-                        return 1;
-                    }
-
-                    return space;
-                })
-            })
-        )
-    }
+    
 
     // const attack = (row: number, col: number) => {
     //     if(board[row][col] === -1 || board[row][col] === -2) {
@@ -88,6 +52,46 @@ const Board = () => {
         console.log('click')
     }
 
+    useEffect(() => {
+        const placeShipVertical =(x: number, y: number, shipSize: number) => {
+            setBoard(b =>
+                b.map((boardRow, rowIndex) => {
+                    return boardRow.map((space, colIndex) => {
+                        if (colIndex === x && rowIndex >= y && rowIndex < y + shipSize) {
+                            return 1;
+                        }
+    
+                        return space;
+                    })
+                })
+            )
+        }
+
+        const placeShipHorizontal = (x: number, y: number, shipSize: number) => {
+            
+            setBoard(b => 
+                b.map((boardRow, rowIndex) => {
+                    return boardRow.map((space, colIndex) => {
+                        if (rowIndex === y && colIndex >= x && colIndex < x + shipSize) {
+                            return 1;
+                        }
+    
+                        return space;
+                    })
+                })
+            )
+        }
+
+        ships.forEach((boat) => {
+            if(boat.currentDirection === "horizontal") {
+                placeShipHorizontal(boat.boardX, boat.boardY, boat.length)
+            } else if (boat.currentDirection === "vertical"){
+                placeShipVertical(boat.boardX, boat.boardY, boat.length)
+            }
+        })
+
+    }, [ships]);
+
     return (
         <main className="grid grid-cols-10 w-fit">
             {board.map((boardRow, rowIndex) => {
@@ -95,9 +99,16 @@ const Board = () => {
                     return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => console.log('click')}/>
                 })
             })}
-            {ships.map((ship) => <Ship ship={ship} onClick={handleShipClick}/>)}
+            {ships.map((ship) => <Ship ship={ship} onClick={handleShipClick} key={ship.type}/>)}
         </main>
     );
 }
 
 export default Board;
+
+// for (let i = col; i < col+shipSize; i++) {
+            //     if (!boardSquareClear(row, i)) {
+            //         console.log("Invalid placement");
+            //         return;
+            //     }
+            // }
