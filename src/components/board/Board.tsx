@@ -25,6 +25,7 @@ const Board = () => {
                 if (!boardSquareClear(y, i, shipId)) {
                     return false;
                 }
+                console.log(x, i, "clear");
             }
 
             return true;
@@ -33,6 +34,7 @@ const Board = () => {
                 if (!boardSquareClear(i, x, shipId)) {
                     return false;
                 }
+                console.log(i, y, "clear");
             }
 
             return true;
@@ -168,7 +170,7 @@ const Board = () => {
     }
 
     return (
-        <main className="grid grid-cols-10 w-fit">
+        <main className="grid grid-cols-10 w-fit h-fit relative">
             {board.map((boardRow, rowIndex) => {
                 return boardRow.map((value, colIndex) => {
                     return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => console.log('click')}/>

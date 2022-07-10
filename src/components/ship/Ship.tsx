@@ -13,6 +13,7 @@ const Ship = ({ship, onClick=() => {}, onShipDrop=() => {}} : ShipProps) => {
 
     return (
         <Rnd enableResizing={false} 
+                bounds="parent"
                 dragGrid={[48, 48]} 
                 default={{x: ship.boardX * 48, y: ship.boardY * 48, width: 'auto', height: 'auto'}}
                 onDragStop={onShipDrop}>
