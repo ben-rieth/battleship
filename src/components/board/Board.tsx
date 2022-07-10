@@ -128,9 +128,44 @@ const Board = () => {
 
     }, [ships, placeShipHorizontal, placeShipVertical]);
 
-    // const tryToMoveShip = (newX: number, newY: number, shipSize: number, shipId: number, shipDirection: "string") => {
+    const tryToMoveShip = (
+            newX: number, newY: number, 
+            oldX: number, oldY : number,
+            shipSize: number, 
+            shipId: number, 
+            shipDirection: string) => {
 
-    // }
+        if(spaceForShipClear(newX, newY, shipSize, shipId, shipDirection)) {
+            setShips(s => s.map((boat) => {
+                if (boat.id === shipId) {
+                    boat.boardX = newX;
+                    boat.boardY = newY;
+                } 
+                return boat;
+            }))
+        } else {
+            setShips(s => s.map((boat) => {
+                if (boat.id === shipId) {
+                    boat.boardX = oldX;
+                    boat.boardY = oldY;
+                } 
+                return boat;
+            }))
+        }
+    }
+
+    const onShipDrop = (dragData: DraggableData, ship: ShipData) => {
+        console.log(dragData);
+        tryToMoveShip(
+            Math.round(dragData.x / 48), 
+            Math.round(dragData.y / 48),
+            Math.round(dragData.lastX / 48),
+            Math.round(dragData.lastY / 48),
+            ship.length,
+            ship.id,
+            ship.currentDirection
+        );
+    }
 
     return (
         <main className="grid grid-cols-10 w-fit">
@@ -140,8 +175,9 @@ const Board = () => {
                 })
             })}
             {ships.map((ship) => {
-                return <Ship ship={ship} 
-                            onClick={() => handleShipClick(ship.id)} key={ship.type}/>
+                return <Ship ship={ship} key={ship.type}
+                            //onClick={() => handleShipClick(ship.id)} 
+                            onShipDrop={(_e: any, data: DraggableData) => onShipDrop(data, ship)}/>
             })}
         </main>
     );

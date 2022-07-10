@@ -1,4 +1,4 @@
-import { Rnd } from "react-rnd";
+import { DraggableData, Rnd } from "react-rnd";
 import ShipData from "../../services/types/ShipData";
 
 import HitIcon from './../../assets/images/hit.svg';
@@ -6,7 +6,7 @@ import HitIcon from './../../assets/images/hit.svg';
 type ShipProps = {
     ship: ShipData;
     onClick?: () => void;
-    onShipDrop?: () => void;
+    onShipDrop?: (_e: any, data: DraggableData) => void;
 }
 
 const Ship = ({ship, onClick=() => {}, onShipDrop=() => {}} : ShipProps) => {
