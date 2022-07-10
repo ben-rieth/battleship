@@ -64,7 +64,7 @@ const Board = () => {
         
     }
 
-    const handleShipClick = (shipId: number) => {
+    const handleShipDoubleClick = (shipId: number, ) => {
         const clickedShip = ships.find(ship => ship.id === shipId);
 
         if (clickedShip!.currentDirection === "horizontal") {
@@ -147,7 +147,6 @@ const Board = () => {
     }
 
     const onShipDrop = (dragData: DraggableData, ship: ShipData) => {
-        console.log(dragData);
         tryToMoveShip(
             Math.round(dragData.x / 48), 
             Math.round(dragData.y / 48),
@@ -166,8 +165,8 @@ const Board = () => {
             })}
             {ships.map((ship) => {
                 return <Ship ship={ship} key={ship.type}
-                            //onClick={() => handleShipClick(ship.id)} 
-                            onShipDrop={(_e: any, data: DraggableData) => onShipDrop(data, ship)}/>
+                            doubleClickHandler={() => handleShipDoubleClick(ship.id)} 
+                            shipDropHandler={(_e: any, data: DraggableData) => onShipDrop(data, ship)}/>
             })}
         </main>
     );
