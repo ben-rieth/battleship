@@ -21,7 +21,7 @@ const Ship = ({ship, doubleClickHandler=() => {}, shipDropHandler=() => {}} : Sh
                 {ship.status.map((pos, index) => {
                     return (
                         <div key={index} 
-                            className={`w-12 h-12 outline outline-2 bg-blue-300 outline-blue-700`}
+                            className={`w-12 h-12 outline outline-2 ${ship.color}`}
                             onDoubleClick={doubleClickHandler}
                             data-testid="compartment"
                         >
