@@ -2,6 +2,7 @@ import ShipData from "../services/types/ShipData";
 
 const INITIAL_SHIPS : ShipData[] = [
     {
+        id: 1,
         length: 2,
         type: "Destroyer",
         color: "red",
@@ -11,6 +12,7 @@ const INITIAL_SHIPS : ShipData[] = [
         status: [0, 0]
     },
     {
+        id: 2,
         length: 3,
         type: "Cruiser",
         color: "orange",
@@ -20,6 +22,7 @@ const INITIAL_SHIPS : ShipData[] = [
         status: [0, 0, 0]
     },
     {
+        id: 3,
         length: 3,
         type: "Submarine",
         color: "yellow",
@@ -29,6 +32,7 @@ const INITIAL_SHIPS : ShipData[] = [
         status: [0, 0, 0]
     },
     {
+        id: 4,
         length: 4,
         type: "Battleship",
         color: "green",
@@ -38,6 +42,7 @@ const INITIAL_SHIPS : ShipData[] = [
         status: [0, 0, 0, 0]
     },
     {
+        id: 5,
         length: 5,
         type: "Carrier",
         color: "blue",

@@ -10,87 +10,107 @@ const Board = () => {
     const [board, setBoard] = useState<number[][]>(INITIAL_BOARD);
     const [ships, setShips] = useState<ShipData[]>(INITIAL_SHIPS);
 
-    const boardSquareClear = useCallback((row: number, col: number) : boolean => {
-        if(board[row][col] === 0) {
+    const boardSquareClear = (row: number, col: number, id: number) : boolean => {
+        if(board[row][col] === 0 || board[row][col] === id) {
             return true;
         }
 
         return false;
-    }, [board]);
-
-    
-
-    
-
-    // const attack = (row: number, col: number) => {
-    //     if(board[row][col] === -1 || board[row][col] === -2) {
-    //         return;
-    //     }
-
-    //     let result : number;
-    //     if(board[row][col] === 1) {
-    //         //a ship is hit
-    //         result = -1;
-    //     } else {
-    //         //a miss
-    //         result = -2;
-    //     }
-
-    //     setBoard(
-    //         board.map((boardRow, rowIndex) => {
-    //             return boardRow.map((space, colIndex) => {
-    //                 if(rowIndex === row && colIndex === col) {
-    //                     return result;
-    //                 }
-    //                 return space;
-    //             });
-    //         })
-    //     );
-    // }
-
-    const handleShipClick = () => {
-        console.log('click')
     }
 
-    useEffect(() => {
-        const placeShipVertical =(x: number, y: number, shipSize: number) => {
-            setBoard(b =>
-                b.map((boardRow, rowIndex) => {
-                    return boardRow.map((space, colIndex) => {
-                        if (colIndex === x && rowIndex >= y && rowIndex < y + shipSize) {
-                            return 1;
-                        }
-    
-                        return space;
-                    })
-                })
-            )
+    const tryToRotateShipHorToVert = (x: number, y: number, shipSize: number, shipId: number) => {
+        for (let i = y; i < y+shipSize; i++) {
+            if (!boardSquareClear(i, x, shipId)) {
+                console.log("Invalid placement");
+                return;
+            }
         }
+        setShips(s => s.map((boat) => {
+            if (boat.id === shipId) {
+                boat.currentDirection = "vertical";
+            } 
+            return boat;
+        }))
+    }
 
-        const placeShipHorizontal = (x: number, y: number, shipSize: number) => {
-            
-            setBoard(b => 
-                b.map((boardRow, rowIndex) => {
-                    return boardRow.map((space, colIndex) => {
-                        if (rowIndex === y && colIndex >= x && colIndex < x + shipSize) {
-                            return 1;
-                        }
-    
-                        return space;
-                    })
-                })
-            )
+    const tryToRotateShipVertToHor = (x: number, y: number, shipSize: number, shipId: number) => {
+        for (let i = x; i < x+shipSize; i++) {
+            if (!boardSquareClear(y, i, shipId)) {
+                console.log("Invalid placement");
+                return;
+            }
         }
+        setShips(s => s.map((boat) => {
+            if (boat.id === shipId) {
+                boat.currentDirection = "horizontal";
+            } 
+            return boat;
+        }))
+    }
+
+    const handleShipClick = (shipId: number) => {
+        const clickedShip = ships.find(ship => ship.id === shipId);
+
+        if (clickedShip!.currentDirection === "horizontal") {
+            tryToRotateShipHorToVert(
+                clickedShip!.boardX, 
+                clickedShip!.boardY, 
+                clickedShip!.length, 
+                clickedShip!.id
+            );
+        } else if (clickedShip!.currentDirection === "vertical") {
+            tryToRotateShipVertToHor(
+                clickedShip!.boardX, 
+                clickedShip!.boardY, 
+                clickedShip!.length, 
+                clickedShip!.id
+            );
+        }
+    }
+
+    const placeShipVertical = useCallback((x: number, y: number, shipSize: number, shipId: number) => {
+        setBoard(b =>
+            b.map((boardRow, rowIndex) => {
+                return boardRow.map((space, colIndex) => {
+                    if (colIndex === x && rowIndex >= y && rowIndex < y + shipSize) {
+                        return shipId;
+                    }
+
+                    return space;
+                })
+            })
+        )
+    }, [])
+
+    const placeShipHorizontal = useCallback((x: number, y: number, shipSize: number, shipId: number) => {
+            
+        setBoard(b => 
+            b.map((boardRow, rowIndex) => {
+                return boardRow.map((space, colIndex) => {
+                    if (rowIndex === y && colIndex >= x && colIndex < x + shipSize) {
+                        return shipId;
+                    }
+
+                    return space;
+                })
+            })
+        )
+    }, [])
+
+    //place ships when the ships array changes
+    useEffect(() => {
+        //clear the board
+        setBoard(b => b.map(row => row.map(_space => 0)));
 
         ships.forEach((boat) => {
             if(boat.currentDirection === "horizontal") {
-                placeShipHorizontal(boat.boardX, boat.boardY, boat.length)
+                placeShipHorizontal(boat.boardX, boat.boardY, boat.length, boat.id)
             } else if (boat.currentDirection === "vertical"){
-                placeShipVertical(boat.boardX, boat.boardY, boat.length)
+                placeShipVertical(boat.boardX, boat.boardY, boat.length, boat.id)
             }
         })
 
-    }, [ships]);
+    }, [ships, placeShipHorizontal, placeShipVertical]);
 
     return (
         <main className="grid grid-cols-10 w-fit">
@@ -99,7 +119,7 @@ const Board = () => {
                     return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => console.log('click')}/>
                 })
             })}
-            {ships.map((ship) => <Ship ship={ship} onClick={handleShipClick} key={ship.type}/>)}
+            {ships.map((ship) => <Ship ship={ship} onClick={() => handleShipClick(ship.id)} key={ship.type}/>)}
         </main>
     );
 }

@@ -7,6 +7,7 @@ import userEvent from '@testing-library/user-event';
 describe('Testing Ship component', () => {
     it("renders correct size ship", () => {
         render(<Ship ship = {{
+            id: 1,
             length: 3,
             type: "Destroyer",
             color: "red",
@@ -23,6 +24,7 @@ describe('Testing Ship component', () => {
 
     it("renders ship horizontally if direction is horizontal", () => {
         render(<Ship ship = {{
+            id: 1,
             length: 2,
             type: "Destroyer",
             color: "red",
@@ -39,6 +41,7 @@ describe('Testing Ship component', () => {
 
     it.skip("renders hit icon when ship is hit", () => {
         render(<Ship ship = {{
+            id: 1,
             length: 2,
             type: "Destroyer",
             color: "red",
