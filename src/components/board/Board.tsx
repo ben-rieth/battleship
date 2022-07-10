@@ -84,6 +84,10 @@ const Board = () => {
     //     );
     // }
 
+    const handleShipClick = () => {
+        console.log('click')
+    }
+
     return (
         <main className="grid grid-cols-10 w-fit">
             {board.map((boardRow, rowIndex) => {
@@ -91,7 +95,7 @@ const Board = () => {
                     return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => console.log('click')}/>
                 })
             })}
-            {ships.map((ship) => <Ship ship={ship} />)}
+            {ships.map((ship) => <Ship ship={ship} onClick={handleShipClick}/>)}
         </main>
     );
 }

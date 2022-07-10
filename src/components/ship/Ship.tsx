@@ -6,9 +6,10 @@ import HitIcon from './../../assets/images/hit.svg';
 
 type ShipProps = {
     ship: ShipData;
+    onClick?: () => void;
 }
 
-const Ship = ({ship} : ShipProps) => {
+const Ship = ({ship, onClick} : ShipProps) => {
     // const [ship, setShip] = useState<number[]>(Array(length).fill(0))
 
     // const hitShip = (hitIndex: number) => {
@@ -40,7 +41,7 @@ const Ship = ({ship} : ShipProps) => {
                     return (
                         <div key={index} 
                             className={`w-12 h-12 outline outline-2 bg-${ship.color}-300 outline-${ship.color}-700`}
-                            //onClick={() => hitShip(index)}
+                            onClick={onClick}
                             data-testid="compartment"
                         >
                             {pos === -1 ? <img src={HitIcon} alt="hit" /> : ""}
