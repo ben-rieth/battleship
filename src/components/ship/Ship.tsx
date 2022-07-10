@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Rnd } from "react-rnd";
 import ShipData from "../../services/types/ShipData";
 
@@ -7,35 +6,16 @@ import HitIcon from './../../assets/images/hit.svg';
 type ShipProps = {
     ship: ShipData;
     onClick?: () => void;
+    onShipDrop?: () => void;
 }
 
-const Ship = ({ship, onClick} : ShipProps) => {
-    // const [ship, setShip] = useState<number[]>(Array(length).fill(0))
-
-    // const hitShip = (hitIndex: number) => {
-    //     setShip(ship.map((pos, index) => {
-    //         if (index === hitIndex) {
-    //             return -1;
-    //         }
-    //         return pos;
-    //     }))
-    // }
-
-    // useEffect(() => {
-    //     const isSunk = () : boolean => {
-    //         return ship.every((pos) => pos === -1);
-    //     }
-
-    //     if(isSunk()) {
-    //         console.log("Ship Sunk");
-    //     }
-
-    // }, [ship])
+const Ship = ({ship, onClick=() => {}, onShipDrop=() => {}} : ShipProps) => {
 
     return (
         <Rnd enableResizing={false} 
                 dragGrid={[48, 48]} 
-                default={{x: ship.boardX * 48, y: ship.boardY * 48, width: 'auto', height: 'auto'}}>
+                default={{x: ship.boardX * 48, y: ship.boardY * 48, width: 'auto', height: 'auto'}}
+                onDragStop={onShipDrop}>
             <div data-testid="ship" className={`${ship.currentDirection === "horizontal" && "flex"}`}>
                 {ship.status.map((pos, index) => {
                     return (

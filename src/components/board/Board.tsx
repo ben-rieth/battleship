@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { DraggableData } from "react-rnd";
 import ShipData from "../../services/types/ShipData";
 import INITIAL_SHIPS from "../../utils/initialShips";
 import Ship from "../ship/Ship";
@@ -18,34 +19,49 @@ const Board = () => {
         return false;
     }
 
-    const tryToRotateShipHorToVert = (x: number, y: number, shipSize: number, shipId: number) => {
-        for (let i = y; i < y+shipSize; i++) {
-            if (!boardSquareClear(i, x, shipId)) {
-                console.log("Invalid placement");
-                return;
+    const spaceForShipClear = (x: number, y: number, shipSize: number, shipId: number, directionToCheck: string) => {
+        if (directionToCheck === "horizontal") {
+            for (let i = x; i < x+shipSize; i++) {
+                if (!boardSquareClear(y, i, shipId)) {
+                    return false;
+                }
             }
+
+            return true;
+        } else {
+            for (let i = y; i < y+shipSize; i++) {
+                if (!boardSquareClear(i, x, shipId)) {
+                    return false;
+                }
+            }
+
+            return true;
         }
-        setShips(s => s.map((boat) => {
-            if (boat.id === shipId) {
-                boat.currentDirection = "vertical";
-            } 
-            return boat;
-        }))
+    }
+
+    const tryToRotateShipHorToVert = (x: number, y: number, shipSize: number, shipId: number) => {
+        if (spaceForShipClear(x, y, shipSize, shipId, "vertical")) {
+
+            setShips(s => s.map((boat) => {
+                if (boat.id === shipId) {
+                    boat.currentDirection = "vertical";
+                } 
+                return boat;
+            }))
+        }
+        
     }
 
     const tryToRotateShipVertToHor = (x: number, y: number, shipSize: number, shipId: number) => {
-        for (let i = x; i < x+shipSize; i++) {
-            if (!boardSquareClear(y, i, shipId)) {
-                console.log("Invalid placement");
-                return;
-            }
+        if (spaceForShipClear(x, y, shipSize, shipId, "horizontal")) {
+            setShips(s => s.map((boat) => {
+                if (boat.id === shipId) {
+                    boat.currentDirection = "horizontal";
+                } 
+                return boat;
+            }))
         }
-        setShips(s => s.map((boat) => {
-            if (boat.id === shipId) {
-                boat.currentDirection = "horizontal";
-            } 
-            return boat;
-        }))
+        
     }
 
     const handleShipClick = (shipId: number) => {
@@ -112,6 +128,10 @@ const Board = () => {
 
     }, [ships, placeShipHorizontal, placeShipVertical]);
 
+    // const tryToMoveShip = (newX: number, newY: number, shipSize: number, shipId: number, shipDirection: "string") => {
+
+    // }
+
     return (
         <main className="grid grid-cols-10 w-fit">
             {board.map((boardRow, rowIndex) => {
@@ -119,16 +139,12 @@ const Board = () => {
                     return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => console.log('click')}/>
                 })
             })}
-            {ships.map((ship) => <Ship ship={ship} onClick={() => handleShipClick(ship.id)} key={ship.type}/>)}
+            {ships.map((ship) => {
+                return <Ship ship={ship} 
+                            onClick={() => handleShipClick(ship.id)} key={ship.type}/>
+            })}
         </main>
     );
 }
 
 export default Board;
-
-// for (let i = col; i < col+shipSize; i++) {
-            //     if (!boardSquareClear(row, i)) {
-            //         console.log("Invalid placement");
-            //         return;
-            //     }
-            // }
