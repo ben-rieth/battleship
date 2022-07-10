@@ -6,7 +6,15 @@ import userEvent from '@testing-library/user-event';
 
 describe('Testing Ship component', () => {
     it("renders correct size ship", () => {
-        render(<Ship length={3} color="red" direction="vertical"/>);
+        render(<Ship ship = {{
+            length: 3,
+            type: "Destroyer",
+            color: "red",
+            currentDirection: "vertical",
+            boardX: 0,
+            boardY: 0,
+            status: [0, 0]
+        }}/>);
 
         const ship = screen.getByTestId('ship');
 
@@ -14,7 +22,15 @@ describe('Testing Ship component', () => {
     });
 
     it("renders ship horizontally if direction is horizontal", () => {
-        render(<Ship length={3} color="red" direction="horizontal" />);
+        render(<Ship ship = {{
+            length: 2,
+            type: "Destroyer",
+            color: "red",
+            currentDirection: "horizontal",
+            boardX: 0,
+            boardY: 0,
+            status: [0, 0]
+        }}/>);
 
         const ship = screen.getByTestId('ship');
 
@@ -22,7 +38,15 @@ describe('Testing Ship component', () => {
     })
 
     it.skip("renders hit icon when ship is hit", () => {
-        render(<Ship length={3} color="red" direction="vertical"/>);
+        render(<Ship ship = {{
+            length: 2,
+            type: "Destroyer",
+            color: "red",
+            currentDirection: "horizontal",
+            boardX: 0,
+            boardY: 0,
+            status: [0, 0]
+        }}/>);
 
         const firstCompartment = screen.getAllByTestId('compartment')[0];
         userEvent.click(firstCompartment);

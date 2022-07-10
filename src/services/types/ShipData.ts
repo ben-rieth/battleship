@@ -5,6 +5,7 @@ type ShipData = {
     currentDirection: "horizontal" | "vertical";
     boardX: number;
     boardY: number;
+    status: number[];
 }
 
 export default ShipData;
