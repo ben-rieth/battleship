@@ -39,6 +39,25 @@ const Board = () => {
         }
     }
 
+    const giveShipErrorTimeout = (shipId: number) => {
+        setShips(s => s.map((boat) => {
+            if (boat.id === shipId) {
+                boat.error = true;
+            } 
+            return boat;
+        }));
+
+        setTimeout(
+            () => {setShips(s => s.map((boat) => {
+                if (boat.id === shipId) {
+                    boat.error = false;
+                } 
+                return boat;
+            }))}
+            , 500
+        );
+    }
+
     const tryToRotateShipHorToVert = (x: number, y: number, shipSize: number, shipId: number) => {
         if (spaceForShipClear(x, y, shipSize, shipId, "vertical")) {
 
@@ -48,6 +67,8 @@ const Board = () => {
                 } 
                 return boat;
             }))
+        } else {
+            giveShipErrorTimeout(shipId);
         }
         
     }
@@ -60,6 +81,8 @@ const Board = () => {
                 } 
                 return boat;
             }))
+        } else {
+            giveShipErrorTimeout(shipId);
         }
         
     }
@@ -143,7 +166,9 @@ const Board = () => {
                 } 
                 return boat;
             }))
-        } 
+        } else {
+            giveShipErrorTimeout(shipId);
+        }
     }
 
     const onShipDrop = (dragData: DraggableData, ship: ShipData) => {

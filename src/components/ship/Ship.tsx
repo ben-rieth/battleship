@@ -17,11 +17,11 @@ const Ship = ({ship, doubleClickHandler=() => {}, shipDropHandler=() => {}} : Sh
                 dragGrid={[48, 48]} 
                 position={{x: ship.boardX * 48, y: ship.boardY * 48}}
                 onDragStop={shipDropHandler}>
-            <div data-testid="ship" className={`${ship.currentDirection === "horizontal" && "flex"}`}>
+            <div data-testid="ship" className={`${ship.currentDirection === "horizontal" && "flex"} ${ship.error ? "animate-shake-no" : ""}`}>
                 {ship.status.map((pos, index) => {
                     return (
                         <div key={index} 
-                            className={`w-12 h-12 outline outline-2 bg-${ship.color}-300 outline-${ship.color}-700 opacity-50`}
+                            className={`w-12 h-12 outline outline-2 bg-blue-300 outline-blue-700`}
                             onDoubleClick={doubleClickHandler}
                             data-testid="compartment"
                         >

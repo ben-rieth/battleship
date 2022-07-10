@@ -7,6 +7,7 @@ type ShipData = {
     boardX: number;
     boardY: number;
     status: number[];
+    error: boolean;
 }
 
 export default ShipData;

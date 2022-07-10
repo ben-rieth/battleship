@@ -9,7 +9,8 @@ const INITIAL_SHIPS : ShipData[] = [
         currentDirection: "horizontal",
         boardX: 0,
         boardY: 0,
-        status: [0, 0]
+        status: [0, 0],
+        error: false
     },
     {
         id: 2,
@@ -19,7 +20,8 @@ const INITIAL_SHIPS : ShipData[] = [
         currentDirection: "horizontal",
         boardX: 2,
         boardY: 4,
-        status: [0, 0, 0]
+        status: [0, 0, 0],
+        error: false
     },
     {
         id: 3,
@@ -29,7 +31,8 @@ const INITIAL_SHIPS : ShipData[] = [
         currentDirection: "horizontal",
         boardX: 5,
         boardY: 8,
-        status: [0, 0, 0]
+        status: [0, 0, 0],
+        error: false
     },
     {
         id: 4,
@@ -39,7 +42,8 @@ const INITIAL_SHIPS : ShipData[] = [
         currentDirection: "vertical",
         boardX: 0,
         boardY: 6,
-        status: [0, 0, 0, 0]
+        status: [0, 0, 0, 0],
+        error: false
     },
     {
         id: 5,
@@ -49,7 +53,8 @@ const INITIAL_SHIPS : ShipData[] = [
         currentDirection: "vertical",
         boardX: 6,
         boardY: 2,
-        status: [0, 0, 0, 0, 0]
+        status: [0, 0, 0, 0, 0],
+        error: false
     }
 ];
 

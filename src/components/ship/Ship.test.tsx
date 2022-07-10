@@ -14,7 +14,8 @@ describe('Testing Ship component', () => {
             currentDirection: "vertical",
             boardX: 0,
             boardY: 0,
-            status: [0, 0]
+            status: [0, 0],
+            error: false
         }}/>);
 
         const ship = screen.getByTestId('ship');
@@ -31,7 +32,8 @@ describe('Testing Ship component', () => {
             currentDirection: "horizontal",
             boardX: 0,
             boardY: 0,
-            status: [0, 0]
+            status: [0, 0],
+            error: false
         }}/>);
 
         const ship = screen.getByTestId('ship');
@@ -48,7 +50,8 @@ describe('Testing Ship component', () => {
             currentDirection: "horizontal",
             boardX: 0,
             boardY: 0,
-            status: [0, 0]
+            status: [0, 0],
+            error: false
         }}/>);
 
         const firstCompartment = screen.getAllByTestId('compartment')[0];
