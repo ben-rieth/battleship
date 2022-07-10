@@ -6,15 +6,23 @@ import userEvent from '@testing-library/user-event';
 
 describe('Testing Ship component', () => {
     it("renders correct size ship", () => {
-        render(<Ship length={3} color="red"/>);
+        render(<Ship length={3} color="red" direction="vertical"/>);
 
         const ship = screen.getByTestId('ship');
 
         expect(ship.childNodes.length).toBe(3);
     });
 
+    it("renders ship horizontally if direction is horizontal", () => {
+        render(<Ship length={3} color="red" direction="horizontal" />);
+
+        const ship = screen.getByTestId('ship');
+
+        expect(ship).toHaveClass('flex');
+    })
+
     it.skip("renders hit icon when ship is hit", () => {
-        render(<Ship length={3} color="red"/>);
+        render(<Ship length={3} color="red" direction="vertical"/>);
 
         const firstCompartment = screen.getAllByTestId('compartment')[0];
         userEvent.click(firstCompartment);

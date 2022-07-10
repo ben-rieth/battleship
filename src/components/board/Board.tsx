@@ -5,7 +5,7 @@ import BoardSquare from "./BoardSquare";
 const INITIAL_BOARD = Array(10).fill(Array(10).fill(0));
 
 const Board = () => {
-    const [board, setBoard] = useState<number[][]>(INITIAL_BOARD)
+    const [board, setBoard] = useState<number[][]>(INITIAL_BOARD);
 
     const boardSquareClear = (row: number, col: number) : boolean => {
         if(board[row][col] === 0) {
@@ -88,11 +88,11 @@ const Board = () => {
                     return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => console.log('click')}/>
                 })
             })}
-            <Ship length={2} color="red"/>
-            <Ship length={3} color="orange"/>
-            <Ship length={3} color="yellow"/>
-            <Ship length={4} color="green"/>
-            <Ship length={5} color="blue"/>
+            <Ship length={2} color="red" direction="horizontal" />
+            <Ship length={3} color="orange" direction="vertical"/>
+            <Ship length={3} color="yellow" direction="vertical"/>
+            <Ship length={4} color="green" direction="horizontal"/>
+            <Ship length={5} color="blue" direction="horizontal"/>
         </main>
     );
 }

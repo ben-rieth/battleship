@@ -6,9 +6,10 @@ import HitIcon from './../../assets/images/hit.svg';
 type ShipProps = {
     length: number;
     color: "red" | "orange" | "yellow" | "green" | "blue";
+    direction: "horizontal" | "vertical";
 }
 
-const Ship = ({length, color,} : ShipProps) => {
+const Ship = ({length, color, direction} : ShipProps) => {
     const [ship, setShip] = useState<number[]>(Array(length).fill(0))
 
     const hitShip = (hitIndex: number) => {
@@ -35,7 +36,7 @@ const Ship = ({length, color,} : ShipProps) => {
         <Rnd enableResizing={false} 
                 dragGrid={[48, 48]} 
                 default={{x: 0, y: 0, width: 'auto', height: 'auto'}}>
-            <div data-testid="ship" className="flex">
+            <div data-testid="ship" className={`${direction === "horizontal" && "flex"}`}>
                 {ship.map((pos, index) => {
                     return (
                         <div key={index} 
