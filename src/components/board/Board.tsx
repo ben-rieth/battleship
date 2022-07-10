@@ -1,10 +1,6 @@
 import { useState } from "react";
+import Ship from "../ship/Ship";
 import BoardSquare from "./BoardSquare";
-
-enum ShipDirection {
-    Vertical,
-    Horizontal
-}
 
 const INITIAL_BOARD = Array(10).fill(Array(10).fill(0));
 
@@ -59,52 +55,44 @@ const Board = () => {
         )
     }
 
-    const placeShip = (
-        row: number, 
-        col: number, 
-        shipSize: number, 
-        direction:ShipDirection=ShipDirection.Horizontal) => {
+    // const attack = (row: number, col: number) => {
+    //     if(board[row][col] === -1 || board[row][col] === -2) {
+    //         return;
+    //     }
 
-            if(direction === ShipDirection.Horizontal) {
-                placeShipHorizontal(row, col, shipSize);
-            } else {
-                placeShipVertical(row, col, shipSize)
-            }   
-    }
+    //     let result : number;
+    //     if(board[row][col] === 1) {
+    //         //a ship is hit
+    //         result = -1;
+    //     } else {
+    //         //a miss
+    //         result = -2;
+    //     }
 
-    const attack = (row: number, col: number) => {
-        if(board[row][col] === -1 || board[row][col] === -2) {
-            return;
-        }
-
-        let result : number;
-        if(board[row][col] === 1) {
-            //a ship is hit
-            result = -1;
-        } else {
-            //a miss
-            result = -2;
-        }
-
-        setBoard(
-            board.map((boardRow, rowIndex) => {
-                return boardRow.map((space, colIndex) => {
-                    if(rowIndex === row && colIndex === col) {
-                        return result;
-                    }
-                    return space;
-                });
-            })
-        );
-    }
+    //     setBoard(
+    //         board.map((boardRow, rowIndex) => {
+    //             return boardRow.map((space, colIndex) => {
+    //                 if(rowIndex === row && colIndex === col) {
+    //                     return result;
+    //                 }
+    //                 return space;
+    //             });
+    //         })
+    //     );
+    // }
 
     return (
         <main className="grid grid-cols-10 w-fit">
             {board.map((boardRow, rowIndex) => {
                 return boardRow.map((value, colIndex) => {
-                    return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => placeShip(rowIndex, colIndex, 3, ShipDirection.Vertical)}/>
+                    return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => console.log('click')}/>
                 })
             })}
+            <Ship length={2} color="red"/>
+            <Ship length={3} color="orange"/>
+            <Ship length={3} color="yellow"/>
+            <Ship length={4} color="green"/>
+            <Ship length={5} color="blue"/>
         </main>
     );
 }
