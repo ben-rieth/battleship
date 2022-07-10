@@ -1,6 +1,11 @@
 import { useState } from "react";
 import BoardSquare from "./BoardSquare";
 
+enum ShipDirection {
+    Vertical,
+    Horizontal
+}
+
 const INITIAL_BOARD = Array(10).fill(Array(10).fill(0));
 
 const Board = () => {
@@ -14,14 +19,13 @@ const Board = () => {
         return false;
     }
 
-    const placeShip = (row: number, col: number, shipSize: number) => {
+    const placeShipHorizontal = (row: number, col: number, shipSize: number) => {
         for (let i = col; i < col+shipSize; i++) {
             if (!boardSquareClear(row, i)) {
                 console.log("Invalid placement");
                 return;
             }
         }
-
         setBoard(
             board.map((bRow, rIndex) => {
                 return bRow.map((space, cIndex) => {
@@ -33,6 +37,39 @@ const Board = () => {
                 })
             })
         )
+    }
+
+    const placeShipVertical = (row: number, col: number, shipSize: number) => {
+        for (let i = row; i < row+shipSize; i++) {
+            if (!boardSquareClear(i, col)) {
+                console.log("Invalid placement");
+                return;
+            }
+        }
+        setBoard(
+            board.map((bRow, rIndex) => {
+                return bRow.map((space, cIndex) => {
+                    if (cIndex === col && rIndex >= row && rIndex < row + shipSize) {
+                        return 1;
+                    }
+
+                    return space;
+                })
+            })
+        )
+    }
+
+    const placeShip = (
+        row: number, 
+        col: number, 
+        shipSize: number, 
+        direction:ShipDirection=ShipDirection.Horizontal) => {
+
+            if(direction === ShipDirection.Horizontal) {
+                placeShipHorizontal(row, col, shipSize);
+            } else {
+                placeShipVertical(row, col, shipSize)
+            }   
     }
 
     const attack = (row: number, col: number) => {
@@ -65,7 +102,7 @@ const Board = () => {
         <main className="grid grid-cols-10 w-fit">
             {board.map((boardRow, rowIndex) => {
                 return boardRow.map((value, colIndex) => {
-                    return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => placeShip(rowIndex, colIndex, 3)}/>
+                    return <BoardSquare key={`${rowIndex}-${colIndex}`} status={value} onClick={() => placeShip(rowIndex, colIndex, 3, ShipDirection.Vertical)}/>
                 })
             })}
         </main>
