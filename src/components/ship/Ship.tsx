@@ -15,7 +15,7 @@ const Ship = ({ship, onClick=() => {}, onShipDrop=() => {}} : ShipProps) => {
         <Rnd enableResizing={false} 
                 bounds="parent"
                 dragGrid={[48, 48]} 
-                default={{x: ship.boardX * 48, y: ship.boardY * 48, width: 'auto', height: 'auto'}}
+                position={{x: ship.boardX * 48, y: ship.boardY * 48}}
                 onDragStop={onShipDrop}>
             <div data-testid="ship" className={`${ship.currentDirection === "horizontal" && "flex"}`}>
                 {ship.status.map((pos, index) => {

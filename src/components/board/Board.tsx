@@ -25,7 +25,6 @@ const Board = () => {
                 if (!boardSquareClear(y, i, shipId)) {
                     return false;
                 }
-                console.log(x, i, "clear");
             }
 
             return true;
@@ -34,7 +33,6 @@ const Board = () => {
                 if (!boardSquareClear(i, x, shipId)) {
                     return false;
                 }
-                console.log(i, y, "clear");
             }
 
             return true;
@@ -132,12 +130,12 @@ const Board = () => {
 
     const tryToMoveShip = (
             newX: number, newY: number, 
-            oldX: number, oldY : number,
             shipSize: number, 
             shipId: number, 
             shipDirection: string) => {
 
         if(spaceForShipClear(newX, newY, shipSize, shipId, shipDirection)) {
+            console.log("clear");
             setShips(s => s.map((boat) => {
                 if (boat.id === shipId) {
                     boat.boardX = newX;
@@ -145,15 +143,7 @@ const Board = () => {
                 } 
                 return boat;
             }))
-        } else {
-            setShips(s => s.map((boat) => {
-                if (boat.id === shipId) {
-                    boat.boardX = oldX;
-                    boat.boardY = oldY;
-                } 
-                return boat;
-            }))
-        }
+        } 
     }
 
     const onShipDrop = (dragData: DraggableData, ship: ShipData) => {
@@ -161,8 +151,6 @@ const Board = () => {
         tryToMoveShip(
             Math.round(dragData.x / 48), 
             Math.round(dragData.y / 48),
-            Math.round(dragData.lastX / 48),
-            Math.round(dragData.lastY / 48),
             ship.length,
             ship.id,
             ship.currentDirection
