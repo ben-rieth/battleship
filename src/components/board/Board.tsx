@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ShipData from "../../services/types/ShipData";
 import Ship from "../ship/Ship";
 import BoardSquare from "./BoardSquare";
 
@@ -6,6 +7,7 @@ const INITIAL_BOARD = Array(10).fill(Array(10).fill(0));
 
 const Board = () => {
     const [board, setBoard] = useState<number[][]>(INITIAL_BOARD);
+    const [ships, setShips] = useState<ShipData[]>();
 
     const boardSquareClear = (row: number, col: number) : boolean => {
         if(board[row][col] === 0) {
