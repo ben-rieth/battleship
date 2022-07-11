@@ -1,9 +1,9 @@
 import React from 'react';
-import Board from './components/board/Board';
+import Game from './components/game/Game';
 
 function App() {
   return (
-    <Board mode="place" showShips={true}/>
+    <Game />
   );
 }
 
