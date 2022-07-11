@@ -7,5 +7,13 @@ export default defineConfig({
       // implement node event listeners here
     },
   },
-  video: false
+
+  video: false,
+
+  component: {
+    devServer: {
+      framework: "create-react-app",
+      bundler: "webpack",
+    },
+  },
 });

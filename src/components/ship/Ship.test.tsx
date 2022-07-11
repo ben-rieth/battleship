@@ -17,7 +17,7 @@ describe('Testing Ship component', () => {
             error: false
         }}/>);
 
-        const ship = screen.getByTestId('ship');
+        const ship = screen.getByTestId('ship', {exact: false});
 
         expect(ship.childNodes.length).toBe(3);
     });
@@ -35,7 +35,7 @@ describe('Testing Ship component', () => {
             error: false
         }}/>);
 
-        const ship = screen.getByTestId('ship');
+        const ship = screen.getByTestId('ship', {exact: false});
 
         expect(ship).toHaveClass('flex');
     });
@@ -53,7 +53,7 @@ describe('Testing Ship component', () => {
             error: false
         }}/>);
 
-        const ship = screen.getByTestId('ship');
+        const ship = screen.getByTestId('ship', {exact: false});
 
         expect(ship).not.toHaveClass('flex');
     })

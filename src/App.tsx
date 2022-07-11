@@ -3,7 +3,7 @@ import Board from './components/board/Board';
 
 function App() {
   return (
-    <Board mode="place"/>
+    <Board mode="place" showShips={true}/>
   );
 }
 
