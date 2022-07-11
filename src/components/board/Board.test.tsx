@@ -5,7 +5,7 @@ import Board from './Board';
 
 describe("Testing Board Component", () => {
     it("renders 100 board squares and five ships", () => {
-        render(<Board />);
+        render(<Board mode="place"/>);
 
         const squares = screen.getAllByTestId('square');
         const ships = screen.getAllByTestId('ship');

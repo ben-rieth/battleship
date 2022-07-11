@@ -7,7 +7,11 @@ import BoardSquare from "./BoardSquare";
 
 const INITIAL_BOARD = Array(10).fill(Array(10).fill(0));
 
-const Board = () => {
+type BoardProps = {
+    mode: "place" | "play";
+}
+
+const Board = ({mode} : BoardProps) => {
     const [board, setBoard] = useState<number[][]>(INITIAL_BOARD);
     const [ships, setShips] = useState<ShipData[]>(INITIAL_SHIPS);
 
@@ -88,6 +92,9 @@ const Board = () => {
     }
 
     const handleShipDoubleClick = (shipId: number, ) => {
+        //if the game is not in placing mode, do not handle the double click
+        if(mode !== "place") return;
+
         const clickedShip = ships.find(ship => ship.id === shipId);
 
         if (clickedShip!.currentDirection === "horizontal") {
@@ -189,7 +196,7 @@ const Board = () => {
                 })
             })}
             {ships.map((ship) => {
-                return <Ship ship={ship} key={ship.type}
+                return <Ship ship={ship} key={ship.type} draggable={mode === "place"}
                             doubleClickHandler={() => handleShipDoubleClick(ship.id)} 
                             shipDropHandler={(_e: any, data: DraggableData) => onShipDrop(data, ship)}/>
             })}
