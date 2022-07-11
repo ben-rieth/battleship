@@ -8,13 +8,14 @@ import BoardSquare from "./BoardSquare";
 const INITIAL_BOARD = Array(10).fill(Array(10).fill(0));
 
 type BoardProps = {
+    id: number;
     mode: "place" | "play";
     showShips: boolean;
 }
 
-const Board = ({mode, showShips} : BoardProps) => {
-    const [board, setBoard] = useState<number[][]>(INITIAL_BOARD);
-    const [ships, setShips] = useState<ShipData[]>(INITIAL_SHIPS);
+const Board = ({id, mode, showShips} : BoardProps) => {
+    const [board, setBoard] = useState<number[][]>([...INITIAL_BOARD]);
+    const [ships, setShips] = useState<ShipData[]>([...INITIAL_SHIPS]);
 
     const boardSquareClear = (row: number, col: number, id: number) : boolean => {
         if(board[row][col] === 0 || board[row][col] === id) {
@@ -169,8 +170,7 @@ const Board = ({mode, showShips} : BoardProps) => {
             console.log("clear");
             setShips(s => s.map((boat) => {
                 if (boat.id === shipId) {
-                    boat.boardX = newX;
-                    boat.boardY = newY;
+                    return {...boat, boardX: newX, boardY: newY}
                 } 
                 return boat;
             }))
@@ -190,14 +190,14 @@ const Board = ({mode, showShips} : BoardProps) => {
     }
 
     return (
-        <main className="grid grid-cols-10 w-fit h-fit relative">
+        <main className="grid grid-cols-10 w-fit h-fit relative" key={id}>
             {board.map((boardRow, rowIndex) => {
                 return boardRow.map((_, colIndex) => {
-                    return <BoardSquare key={`${rowIndex}-${colIndex}`}/>
+                    return <BoardSquare key={`${id}-${rowIndex}-${colIndex}`}/>
                 })
             })}
             {showShips && ships.map((ship) => {
-                return <Ship ship={ship} key={ship.type} draggable={mode === "place"}
+                return <Ship ship={ship} key={`${id}-${ship.type}`} draggable={mode === "place"}
                             doubleClickHandler={() => handleShipDoubleClick(ship.id)} 
                             shipDropHandler={(_e: any, data: DraggableData) => onShipDrop(data, ship)}/>
             })}

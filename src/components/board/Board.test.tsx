@@ -5,7 +5,7 @@ import Board from './Board';
 
 describe("Testing Board Component", () => {
     it("renders 100 board squares and five ships", () => {
-        render(<Board mode="place" showShips={true}/>);
+        render(<Board mode="place" showShips={true} id={1}/>);
 
         const squares = screen.getAllByTestId('square');
         const ships = screen.getAllByTestId('ship', {exact: false});
@@ -15,7 +15,7 @@ describe("Testing Board Component", () => {
     });
 
     it("does not render ships when showShips is false", () => {
-        render(<Board mode="place" showShips={false}/>);
+        render(<Board mode="place" showShips={false} id={1}/>);
 
         const ships = screen.queryAllByTestId("ship");
 
