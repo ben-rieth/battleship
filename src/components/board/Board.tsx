@@ -17,8 +17,8 @@ const Board = ({id, mode, showShips} : BoardProps) => {
     const [board, setBoard] = useState<number[][]>([...INITIAL_BOARD]);
     const [ships, setShips] = useState<ShipData[]>([...INITIAL_SHIPS]);
 
-    const boardSquareClear = (row: number, col: number, id: number) : boolean => {
-        if(board[row][col] === 0 || board[row][col] === id) {
+    const boardSquareClear = (row: number, col: number, shipId: number) : boolean => {
+        if(board[row][col] === 0 || board[row][col] === shipId) {
             return true;
         }
 
