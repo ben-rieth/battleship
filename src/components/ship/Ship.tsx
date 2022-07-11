@@ -23,7 +23,7 @@ const Ship = ({ship, draggable=true, doubleClickHandler, shipDropHandler} : Ship
         >
 
             <div data-testid={`ship-${ship.type}`} 
-                className={`outline outline-4 outline-offset-[-3px] ${ship.color} 
+                className={`outline outline-4 outline-offset-[-3px] opacity-50 ${ship.color} 
                                 ${ship.currentDirection === "horizontal" ? "flex" : ""} 
                                 ${ship.error ? "animate-shake-no" : ""} `}
             >
