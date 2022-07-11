@@ -21,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "e2e": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -42,7 +43,10 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.1",
+    "@testing-library/cypress": "^8.0.3",
     "autoprefixer": "^10.4.7",
+    "cypress": "^10.3.0",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.5"
   }

@@ -9,9 +9,10 @@ const INITIAL_BOARD = Array(10).fill(Array(10).fill(0));
 
 type BoardProps = {
     mode: "place" | "play";
+    showShips: boolean;
 }
 
-const Board = ({mode} : BoardProps) => {
+const Board = ({mode, showShips} : BoardProps) => {
     const [board, setBoard] = useState<number[][]>(INITIAL_BOARD);
     const [ships, setShips] = useState<ShipData[]>(INITIAL_SHIPS);
 
@@ -195,7 +196,7 @@ const Board = ({mode} : BoardProps) => {
                     return <BoardSquare key={`${rowIndex}-${colIndex}`}/>
                 })
             })}
-            {ships.map((ship) => {
+            {showShips && ships.map((ship) => {
                 return <Ship ship={ship} key={ship.type} draggable={mode === "place"}
                             doubleClickHandler={() => handleShipDoubleClick(ship.id)} 
                             shipDropHandler={(_e: any, data: DraggableData) => onShipDrop(data, ship)}/>
