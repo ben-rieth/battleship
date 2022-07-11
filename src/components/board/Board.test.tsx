@@ -1,15 +1,18 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
 import Board from './Board';
 
 describe("Testing Board Component", () => {
-    it("renders all board squares", () => {
+    it("renders 100 board squares and five ships", () => {
         render(<Board />);
 
-        const board = screen.getByRole('main');
+        const squares = screen.getAllByTestId('square');
+        const ships = screen.getAllByTestId('ship');
 
-        expect(board.childNodes.length).toBe(100);
-    })
+        expect(squares.length).toBe(100);
+        expect(ships.length).toBe(5);
+    });
+
+
 })

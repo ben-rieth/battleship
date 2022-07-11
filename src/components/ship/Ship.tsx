@@ -9,7 +9,7 @@ type ShipProps = {
     shipDropHandler?: (_e: any, data: DraggableData) => void;
 }
 
-const Ship = ({ship, doubleClickHandler=() => {}, shipDropHandler=() => {}} : ShipProps) => {
+const Ship = ({ship, doubleClickHandler, shipDropHandler} : ShipProps) => {
 
     return (
         <Rnd enableResizing={false} 
@@ -17,6 +17,7 @@ const Ship = ({ship, doubleClickHandler=() => {}, shipDropHandler=() => {}} : Sh
                 dragGrid={[48, 48]} 
                 position={{x: ship.boardX * 48, y: ship.boardY * 48}}
                 onDragStop={shipDropHandler}>
+
             <div data-testid="ship" className={`outline outline-4 outline-offset-[-3px] ${ship.color} ${ship.currentDirection === "horizontal" && "flex"} ${ship.error ? "animate-shake-no" : ""}`}>
                 {ship.status.map((pos, index) => {
                     return (

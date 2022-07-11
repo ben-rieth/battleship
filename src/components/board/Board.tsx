@@ -184,7 +184,7 @@ const Board = () => {
     return (
         <main className="grid grid-cols-10 w-fit h-fit relative">
             {board.map((boardRow, rowIndex) => {
-                return boardRow.map((value, colIndex) => {
+                return boardRow.map((_, colIndex) => {
                     return <BoardSquare key={`${rowIndex}-${colIndex}`}/>
                 })
             })}

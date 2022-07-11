@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Ship from './Ship';
-import userEvent from '@testing-library/user-event';
 
 describe('Testing Ship component', () => {
     it("renders correct size ship", () => {
@@ -14,7 +13,7 @@ describe('Testing Ship component', () => {
             currentDirection: "vertical",
             boardX: 0,
             boardY: 0,
-            status: [0, 0],
+            status: [0, 0, 0],
             error: false
         }}/>);
 
@@ -39,25 +38,24 @@ describe('Testing Ship component', () => {
         const ship = screen.getByTestId('ship');
 
         expect(ship).toHaveClass('flex');
-    })
+    });
 
-    it.skip("renders hit icon when ship is hit", () => {
+    it("renders ship vertically if direction is vertical", () => {
         render(<Ship ship = {{
             id: 1,
             length: 2,
             type: "Destroyer",
             color: "red",
-            currentDirection: "horizontal",
+            currentDirection: "vertical",
             boardX: 0,
             boardY: 0,
             status: [0, 0],
             error: false
         }}/>);
 
-        const firstCompartment = screen.getAllByTestId('compartment')[0];
-        userEvent.click(firstCompartment);
+        const ship = screen.getByTestId('ship');
 
-        expect(firstCompartment).toContainElement(screen.getByAltText("hit"));
-
+        expect(ship).not.toHaveClass('flex');
     })
+
 })
