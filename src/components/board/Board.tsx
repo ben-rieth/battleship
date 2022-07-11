@@ -189,11 +189,19 @@ const Board = ({id, mode, showShips} : BoardProps) => {
         );
     }
 
+    const onAttackClick = (x: number, y:number) => {
+        if (board[y][x] === 0) {
+            console.log("miss")
+        } else {
+            console.log("hit")
+        }
+    }
+
     return (
         <main className="grid grid-cols-10 w-fit h-fit relative" key={id}>
             {board.map((boardRow, rowIndex) => {
                 return boardRow.map((_, colIndex) => {
-                    return <BoardSquare key={`${id}-${rowIndex}-${colIndex}`}/>
+                    return <BoardSquare key={`${id}-${rowIndex}-${colIndex}`} clickHandler={() => onAttackClick(colIndex, rowIndex)}/>
                 })
             })}
             {showShips && ships.map((ship) => {

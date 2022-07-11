@@ -19,9 +19,15 @@ const Ship = ({ship, draggable=true, doubleClickHandler, shipDropHandler} : Ship
             dragGrid={[48, 48]} 
             position={{x: ship.boardX * 48, y: ship.boardY * 48}}
             onDragStop={shipDropHandler}
+            className={`${!draggable && "pointer-events-none"}`}
         >
 
-            <div data-testid={`ship-${ship.type}`} className={`outline outline-4 outline-offset-[-3px] ${ship.color} ${ship.currentDirection === "horizontal" ? "flex" : ""} ${ship.error ? "animate-shake-no" : ""}`}>
+            <div data-testid={`ship-${ship.type}`} 
+                className={`outline outline-4 outline-offset-[-3px] ${ship.color} 
+                                ${ship.currentDirection === "horizontal" ? "flex" : ""} 
+                                ${ship.error ? "animate-shake-no" : ""} `}
+            >
+
                 {ship.status.map((pos, index) => {
                     return (
                         <div key={index} 
@@ -32,6 +38,7 @@ const Ship = ({ship, draggable=true, doubleClickHandler, shipDropHandler} : Ship
                             {pos === -1 ? <img src={HitIcon} alt="hit" /> : ""}
                         </div>)
                 })}
+
             </div>
         </Rnd>
     )
