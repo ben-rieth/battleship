@@ -11,9 +11,10 @@ type BoardProps = {
     id: number;
     mode: "place" | "play";
     showShips: boolean;
+    goToNextTurn?: () => void;
 }
 
-const Board = ({id, mode, showShips} : BoardProps) => {
+const Board = ({id, mode, showShips, goToNextTurn= () => {/* empty handler */}} : BoardProps) => {
     const [board, setBoard] = useState<number[][]>([...INITIAL_BOARD]);
     const [ships, setShips] = useState<ShipData[]>([...INITIAL_SHIPS]);
 
@@ -245,6 +246,8 @@ const Board = ({id, mode, showShips} : BoardProps) => {
                 })
             })
         );
+
+        goToNextTurn();
     }
 
     useEffect(() => {

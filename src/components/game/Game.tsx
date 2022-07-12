@@ -13,12 +13,16 @@ const Game = () => {
         }
     }, [turn])
 
+    const onShipAttack = () => {
+        setTurn(turn + 1);
+    }
+
     return (
         <div className="flex flex-col">
             <div className="flex justify-around">
                 <div className="flex flex-col items-center gap-5">
                     <h2 className="font-bold text-3xl">Player 1's Board</h2>
-                    <Board mode={mode} showShips={turn % 2 === 1} id={1}/>
+                    <Board mode={mode} showShips={turn % 2 === 1} id={1} goToNextTurn={onShipAttack}/>
                 </div>
                 <div className="flex flex-col items-center gap-5"> 
                     <h2 className="font-bold text-3xl">Player 2's Board</h2>
