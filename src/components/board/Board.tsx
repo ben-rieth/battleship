@@ -201,7 +201,25 @@ const Board = ({id, mode, showShips} : BoardProps) => {
         })
     }
 
+    const processShipHit = (hitShipId: number, hitSquareX: number, hitSquareY: number) => {
+        setShips(s => s.map((boat) => {
+            if (boat.id === hitShipId) {
+                return {
+                    ...boat,
+                    status: boat.currentDirection === "horizontal" ? 
+                                getNewBoatStatus(boat.status, hitSquareX - boat.boardX) : 
+                                getNewBoatStatus(boat.status, hitSquareY - boat.boardY)
+                }
+            }
+            return boat;
+        }))
+    }
+
     const onAttackClick = (x: number, y:number) => {
+        if (mode !== "play") {
+            return;
+        }
+
         const attackedSquare = board[y][x];
         let attackResult : -1 | -2;
         if (attackedSquare === 0) {
@@ -211,17 +229,8 @@ const Board = ({id, mode, showShips} : BoardProps) => {
             console.log("hit")
             attackResult = -2;
 
-            setShips(s => s.map((boat) => {
-                if (boat.id === attackedSquare) {
-                    return {
-                        ...boat,
-                        status: boat.currentDirection === "horizontal" ? 
-                                    getNewBoatStatus(boat.status, x - boat.boardX) : 
-                                    getNewBoatStatus(boat.status, y - boat.boardY)
-                    }
-                }
-                return boat;
-            }))
+            processShipHit(attackedSquare, x, y);
+            
         }
 
         setBoard(
@@ -240,7 +249,7 @@ const Board = ({id, mode, showShips} : BoardProps) => {
         <main className="grid grid-cols-10 w-fit h-fit relative" key={id}>
             {board.map((boardRow, rowIndex) => {
                 return boardRow.map((space, colIndex) => {
-                    return <BoardSquare key={`${id}-${rowIndex}-${colIndex}`} clickHandler={() => onAttackClick(colIndex, rowIndex)} value={space}/>
+                    return <BoardSquare key={`${id}-${rowIndex}-${colIndex}`} squareId={`${id}-${rowIndex}-${colIndex}`} clickHandler={() => onAttackClick(colIndex, rowIndex)} value={space}/>
                 })
             })}
             {showShips && ships.map((ship) => {
