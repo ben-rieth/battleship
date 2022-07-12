@@ -148,17 +148,19 @@ const Board = ({id, mode, showShips} : BoardProps) => {
     //place ships when the ships array changes
     useEffect(() => {
         //clear the board
-        setBoard(b => b.map(row => row.map(_space => 0)));
+        if (mode === "place") {
+            setBoard(b => b.map(row => row.map(_space => 0)));
 
-        ships.forEach((boat) => {
-            if(boat.currentDirection === "horizontal") {
-                placeShipHorizontal(boat.boardX, boat.boardY, boat.length, boat.id)
-            } else if (boat.currentDirection === "vertical"){
-                placeShipVertical(boat.boardX, boat.boardY, boat.length, boat.id)
-            }
-        })
 
-    }, [ships, placeShipHorizontal, placeShipVertical]);
+            ships.forEach((boat) => {
+                if(boat.currentDirection === "horizontal") {
+                    placeShipHorizontal(boat.boardX, boat.boardY, boat.length, boat.id)
+                } else if (boat.currentDirection === "vertical"){
+                    placeShipVertical(boat.boardX, boat.boardY, boat.length, boat.id)
+                }
+            })
+        }
+    }, [ships, mode, placeShipHorizontal, placeShipVertical]);
 
     const tryToMoveShip = (
             newX: number, newY: number, 
