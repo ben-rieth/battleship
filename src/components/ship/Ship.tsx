@@ -23,7 +23,7 @@ const Ship = ({ship, draggable=true, doubleClickHandler, shipDropHandler} : Ship
         >
 
             <div data-testid={`ship-${ship.type}`} 
-                className={`outline outline-4 outline-offset-[-3px] opacity-50 ${ship.color} 
+                className={`outline outline-4 outline-offset-[-3px] ${ship.color} 
                                 ${ship.currentDirection === "horizontal" ? "flex" : ""} 
                                 ${ship.error ? "animate-shake-no" : ""} `}
             >
@@ -31,11 +31,11 @@ const Ship = ({ship, draggable=true, doubleClickHandler, shipDropHandler} : Ship
                 {ship.status.map((pos, index) => {
                     return (
                         <div key={index} 
-                            className={`w-12 h-12 ${ship.color}`}
+                            className={`w-12 h-12 flex items-center justify-center ${ship.color}`}
                             onDoubleClick={doubleClickHandler}
                             data-testid="compartment"
                         >
-                            {pos === -1 ? <img src={HitIcon} alt="hit" /> : ""}
+                            {pos === -1 ? <img src={HitIcon} alt="hit" className="w-10 h-10"/> : ""}
                         </div>)
                 })}
 
