@@ -198,7 +198,7 @@ const Board = ({id, mode, showShips} : BoardProps) => {
                 return -1;
             }
             return positionStatus;
-        })
+        });
     }
 
     const processShipHit = (hitShipId: number, hitSquareX: number, hitSquareY: number) => {
@@ -212,7 +212,7 @@ const Board = ({id, mode, showShips} : BoardProps) => {
                 }
             }
             return boat;
-        }))
+        }));
     }
 
     const onAttackClick = (x: number, y:number) => {
@@ -246,6 +246,16 @@ const Board = ({id, mode, showShips} : BoardProps) => {
             })
         );
     }
+
+    useEffect(() => {
+        if (mode === "play") {
+            const allSunk : boolean = ships.every((boat) => boat.status.every((position) => position === -1));
+
+            if(allSunk) {
+                console.log("All ships sunk on board ", id);
+            }
+        }
+    }, [ships, mode, id])
 
     return (
         <main className="grid grid-cols-10 w-fit h-fit relative" key={id}>
