@@ -267,7 +267,7 @@ const Board = ({id, mode, showShips} : BoardProps) => {
             {showShips && ships.map((ship) => {
                 return <Ship ship={ship} key={`${id}-${ship.type}`} draggable={mode === "place"}
                             doubleClickHandler={() => handleShipDoubleClick(ship.id)} 
-                            shipDropHandler={(_e: any, data: DraggableData) => onShipDrop(data, ship)}/>
+                            shipDropHandler={(data: DraggableData) => onShipDrop(data, ship)}/>
             })}
         </main>
     );

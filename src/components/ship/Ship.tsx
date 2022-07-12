@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { DraggableData, Rnd } from "react-rnd";
 import ShipData from "../../services/types/ShipData";
 
@@ -7,10 +8,23 @@ type ShipProps = {
     ship: ShipData;
     draggable?: boolean;
     doubleClickHandler?: () => void;
-    shipDropHandler?: (_e: any, data: DraggableData) => void;
+    shipDropHandler?: (data: DraggableData) => void;
 }
 
-const Ship = ({ship, draggable=true, doubleClickHandler, shipDropHandler} : ShipProps) => {
+const Ship = ({ship, draggable=true, 
+                doubleClickHandler=() => { /* empty handler */ }, 
+                shipDropHandler=() => {/* empty handler */ }} : ShipProps) => {
+
+    const [isBeingDragged, setIsBeingDragged] = useState<boolean>(false);
+
+    const dragStart = () => {
+        setIsBeingDragged(true);
+    }
+
+    const dragEnd = (_e: any, data: DraggableData) => {
+        setIsBeingDragged(false);
+        shipDropHandler(data);
+    }
 
     return (
         <Rnd enableResizing={false}
@@ -18,12 +32,13 @@ const Ship = ({ship, draggable=true, doubleClickHandler, shipDropHandler} : Ship
             bounds="parent"
             dragGrid={[48, 48]} 
             position={{x: ship.boardX * 48, y: ship.boardY * 48}}
-            onDragStop={shipDropHandler}
-            className={`${!draggable && "pointer-events-none"}`}
+            onDragStart={dragStart}
+            onDragStop={dragEnd}
+            className={`${!draggable && "pointer-events-none"} ${isBeingDragged && "z-50"}`}
         >
 
             <div data-testid={`ship-${ship.type}`} 
-                className={`outline outline-4 outline-offset-[-3px] ${ship.color} 
+                className={`outline outline-4 outline-offset-[-3px] ${ship.color}
                                 ${ship.currentDirection === "horizontal" ? "flex" : ""} 
                                 ${ship.error ? "animate-shake-no" : ""} `}
             >
