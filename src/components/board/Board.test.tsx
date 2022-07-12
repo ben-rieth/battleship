@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 
 describe("Testing Board Component", () => {
     it("renders 100 board squares and five ships", () => {
-        render(<Board mode="place" showShips={true} id={1}/>);
+        render(<Board mode="place" showShips={true} id={1} canInteract={true}/>);
 
         const squares = screen.getAllByTestId('square', {exact: false});
         const ships = screen.getAllByTestId('ship', {exact: false});
@@ -16,7 +16,7 @@ describe("Testing Board Component", () => {
     });
 
     it("does not render ships when showShips is false", () => {
-        render(<Board mode="place" showShips={false} id={1}/>);
+        render(<Board mode="place" showShips={false} id={1} canInteract={true}/>);
 
         const ships = screen.queryAllByTestId("ship");
 
@@ -24,7 +24,7 @@ describe("Testing Board Component", () => {
     });
 
     it("does not process misses in placing mode", () => {
-        render(<Board mode="place" showShips={false} id={1}/>);
+        render(<Board mode="place" showShips={false} id={1} canInteract={true}/>);
 
         const squareX4Y0 = screen.getByTestId('square-1-0-4');
         const missIconX4Y0 = screen.queryByTestId('miss-1-0-4');
@@ -38,7 +38,7 @@ describe("Testing Board Component", () => {
     });
 
     it("displays miss icon when square clicked in play mode", () => {
-        render(<Board mode="play" showShips={false} id={1}/>);
+        render(<Board mode="play" showShips={false} id={1} canInteract={true}/>);
 
         const squareX4Y0 = screen.getByTestId('square-1-0-4');
 
@@ -49,7 +49,7 @@ describe("Testing Board Component", () => {
     });
 
     it("does not process hits in placing mode", () => {
-        render(<Board mode="place" showShips={false} id={1}/>);
+        render(<Board mode="place" showShips={false} id={1} canInteract={true}/>);
 
         const squareX0Y0 = screen.getByTestId('square-1-0-0');
         const hitIconX0Y0 = screen.queryByTestId('hit-1-0-0');

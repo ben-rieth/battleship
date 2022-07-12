@@ -10,11 +10,12 @@ const INITIAL_BOARD = Array(10).fill(Array(10).fill(0));
 type BoardProps = {
     id: number;
     mode: "place" | "play";
+    canInteract: boolean;
     showShips: boolean;
     goToNextTurn?: () => void;
 }
 
-const Board = ({id, mode, showShips, goToNextTurn= () => {/* empty handler */}} : BoardProps) => {
+const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty handler */}} : BoardProps) => {
     const [board, setBoard] = useState<number[][]>([...INITIAL_BOARD]);
     const [ships, setShips] = useState<ShipData[]>([...INITIAL_SHIPS]);
 
@@ -96,7 +97,7 @@ const Board = ({id, mode, showShips, goToNextTurn= () => {/* empty handler */}} 
 
     const handleShipDoubleClick = (shipId: number, ) => {
         //if the game is not in placing mode, do not handle the double click
-        if(mode !== "place") return;
+        if(mode !== "place" || !canInteract) return;
 
         const clickedShip = ships.find(ship => ship.id === shipId);
 
@@ -217,9 +218,7 @@ const Board = ({id, mode, showShips, goToNextTurn= () => {/* empty handler */}} 
     }
 
     const onAttackClick = (x: number, y:number) => {
-        if (mode !== "play") {
-            return;
-        }
+        if (mode !== "play" || !canInteract) return;
 
         const attackedSquare = board[y][x];
         let attackResult : -1 | -2;
