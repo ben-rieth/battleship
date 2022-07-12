@@ -225,12 +225,14 @@ const Board = ({id, mode, showShips} : BoardProps) => {
         if (attackedSquare === 0) {
             console.log("miss");
             attackResult = -1;
-        } else {
+        } else if (attackedSquare > 0) {
             console.log("hit")
             attackResult = -2;
 
-            processShipHit(attackedSquare, x, y);
-            
+            processShipHit(attackedSquare, x, y);  
+        } else {
+            console.log("Already attacked");
+            return;
         }
 
         setBoard(
