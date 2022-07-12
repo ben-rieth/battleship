@@ -189,14 +189,37 @@ const Board = ({id, mode, showShips} : BoardProps) => {
         );
     }
 
+    const getNewBoatStatus = (oldStatus: number[], shipHitIndex: number) => {
+
+        return oldStatus.map((positionStatus, index) => {
+            if (index === shipHitIndex) {
+                return -1;
+            }
+            return positionStatus;
+        })
+    }
+
     const onAttackClick = (x: number, y:number) => {
+        const attackedSquare = board[y][x];
         let attackResult : -1 | -2;
-        if (board[y][x] === 0) {
+        if (attackedSquare === 0) {
             console.log("miss");
             attackResult = -1;
         } else {
             console.log("hit")
             attackResult = -2;
+
+            setShips(s => s.map((boat) => {
+                if (boat.id === attackedSquare) {
+                    return {
+                        ...boat,
+                        status: boat.currentDirection === "horizontal" ? 
+                                    getNewBoatStatus(boat.status, x - boat.boardX) : 
+                                    getNewBoatStatus(boat.status, y - boat.boardY)
+                    }
+                }
+                return boat;
+            }))
         }
 
         setBoard(
@@ -208,7 +231,7 @@ const Board = ({id, mode, showShips} : BoardProps) => {
                     return space;
                 })
             })
-        )
+        );
     }
 
     return (
