@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { DraggableData } from "react-rnd";
 import ShipData from "../../services/types/ShipData";
 import INITIAL_SHIPS from "../../utils/initialShips";
+import { getGridSizeBasedOnScreenWidth } from "../../utils/ScreenUtils";
 import Ship from "../ship/Ship";
 import BoardSquare from "./BoardSquare";
 
@@ -184,7 +185,7 @@ const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty 
     }
 
     const onShipDrop = (dragData: DraggableData, ship: ShipData) => {
-        const gridSize = window.screen.width >= 768 ? 48 : 24;
+        const gridSize = getGridSizeBasedOnScreenWidth();
 
         tryToMoveShip(
             Math.round(dragData.x / gridSize), 

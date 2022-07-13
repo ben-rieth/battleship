@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DraggableData, Rnd } from "react-rnd";
 import ShipData from "../../services/types/ShipData";
+import { getGridSizeBasedOnScreenWidth } from "../../utils/ScreenUtils";
 
 import HitIcon from './../../assets/images/hit.svg';
 
@@ -17,7 +18,7 @@ const Ship = ({ship, draggable=true,
 
     const [isBeingDragged, setIsBeingDragged] = useState<boolean>(false);
 
-    const gridSize = window.screen.width >= 768 ? 48 : 24;
+    const gridSize = getGridSizeBasedOnScreenWidth();
 
     const dragStart = () => {
         setIsBeingDragged(true);
@@ -48,7 +49,7 @@ const Ship = ({ship, draggable=true,
                 {ship.status.map((pos, index) => {
                     return (
                         <div key={index} 
-                            className={`w-6 h-6 md:w-12 md:h-12 flex items-center justify-center ${ship.color}`}
+                            className={`w-6 h-6 xs:w-9 xs:h-9 md:w-12 md:h-12 flex items-center justify-center ${ship.color}`}
                             onDoubleClick={doubleClickHandler}
                             data-testid="compartment"
                         >

@@ -33,6 +33,10 @@ module.exports = {
         'shake-no': 'shake_no 1s ease-in-out infinite'
       },
 
+      screens: {
+        'xs': '375px'
+      },
+
     },
   },
   plugins: [],
