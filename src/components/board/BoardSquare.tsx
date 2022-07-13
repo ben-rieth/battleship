@@ -22,7 +22,7 @@ const BoardSquare = ({squareId, value, clickHandler} : BoardSquareProps) => {
     }
     
     return (
-        <div className="w-6 h-6 xs:w-9 xs:h-9 md:w-12 md:h-12 border-2 border-slate-500 flex items-center justify-center" data-testid={`square-${squareId}`} onClick={clickHandler}>
+        <div className="w-6 h-6 xs:w-9 xs:h-9 lg:w-12 lg:h-12 outline outline-2 outline-offset-[-2px] outline-slate-500 flex items-center justify-center" data-testid={`square-${squareId}`} onClick={clickHandler}>
             {insideElement}
         </div>
     )

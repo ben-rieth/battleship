@@ -19,7 +19,6 @@ const Ship = ({ship, draggable=true,
     const [isBeingDragged, setIsBeingDragged] = useState<boolean>(false);
 
     const gridSize = getGridSizeBasedOnScreenWidth();
-    console.log("ship:", gridSize);
 
     const dragStart = () => {
         setIsBeingDragged(true);
@@ -30,6 +29,7 @@ const Ship = ({ship, draggable=true,
         shipDropHandler(data);
     }
 
+    console.log(ship.type, "- X:", ship.boardX * gridSize, "Y:", ship.boardY * gridSize);
     return (
         <Rnd enableResizing={false}
             disableDragging={!draggable} 
@@ -50,7 +50,7 @@ const Ship = ({ship, draggable=true,
                 {ship.status.map((pos, index) => {
                     return (
                         <div key={index} 
-                            className={`w-6 h-6 xs:w-9 xs:h-9 md:w-12 md:h-12 flex items-center justify-center ${ship.color}`}
+                            className={`w-6 h-6 xs:w-9 xs:h-9 lg:w-12 lg:h-12 flex items-center justify-center ${ship.color}`}
                             onDoubleClick={doubleClickHandler}
                             data-testid="compartment"
                         >

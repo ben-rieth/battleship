@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
@@ -20,6 +21,11 @@ module.exports = {
       sky: colors.sky
     },
 
+    screens: {
+      'xs': '375px',
+      ...defaultTheme.screens
+    },
+
     extend: {
 
       keyframes: {
@@ -32,11 +38,7 @@ module.exports = {
 
       animation: {
         'shake-no': 'shake_no 1s ease-in-out infinite'
-      },
-
-      screens: {
-        'xs': '375px'
-      },
+      }
 
     },
   },
