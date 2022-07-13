@@ -1,9 +1,9 @@
 export const getGridSizeBasedOnScreenWidth = () => {
-    const screenWidth = window.screen.width;
+    const screenWidth = window.innerWidth;
 
     if (screenWidth >= 768) {
         return 48;
-    } else if (screenWidth < 768 && screenWidth >= 375) {
+    } else if (screenWidth >= 375) {
         return 36;
     } else {
         return 24;

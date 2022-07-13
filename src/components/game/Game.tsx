@@ -46,10 +46,12 @@ const Game = () => {
     }
 
     return (
-        <div className="flex flex-col">
-            <div className="flex flex-col items-center gap-4 lg:flex-row justify-around">
-                <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board" handleClick={switchVisibleBoard}/>
-                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 1 && "hidden"}`}>
+        <div className="flex flex-col gap-5">
+            <div className="flex flex-col md:flex-row gap-4 justify-around">
+                <div className="block md:hidden">
+                    <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board" handleClick={switchVisibleBoard}/>
+                </div>
+                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 1 && "hidden md:flex"}`}>
                     <h2 className="font-bold text-3xl">Player 1's Board</h2>
                     <Board id={1} 
                         mode={mode} 
@@ -57,7 +59,7 @@ const Game = () => {
                         canInteract={board1Clickable}
                         goToNextTurn={nextTurn}/>
                 </div>
-                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 2 && "hidden"}`}> 
+                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 2 && "hidden md:flex"}`}> 
                     <h2 className="font-bold text-3xl">Player 2's Board</h2>
                     <Board id={2} 
                         mode={mode} 
@@ -65,14 +67,13 @@ const Game = () => {
                         canInteract={board2Clickable}
                         goToNextTurn={nextTurn}/>
                 </div>
-                <button 
-                    onClick={nextTurn}
-                    className={`${mode === "play" && "hidden"} p-3 border-4 border-sky-800 rounded`}
-                >
-                    Done Placing Ships
-                </button>
             </div>
-            
+            <button 
+                onClick={nextTurn}
+                className={`${mode === "play" && "hidden"} p-3 border-4 border-sky-800 rounded w-1/4 min-w-fit mx-auto`}
+            >
+                Done Placing Ships
+            </button>
         </div>
     )
 }

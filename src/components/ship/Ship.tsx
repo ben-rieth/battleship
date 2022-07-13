@@ -19,6 +19,7 @@ const Ship = ({ship, draggable=true,
     const [isBeingDragged, setIsBeingDragged] = useState<boolean>(false);
 
     const gridSize = getGridSizeBasedOnScreenWidth();
+    console.log("ship:", gridSize);
 
     const dragStart = () => {
         setIsBeingDragged(true);

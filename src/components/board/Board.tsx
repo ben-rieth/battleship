@@ -186,6 +186,7 @@ const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty 
 
     const onShipDrop = (dragData: DraggableData, ship: ShipData) => {
         const gridSize = getGridSizeBasedOnScreenWidth();
+        console.log("board:", gridSize)
 
         tryToMoveShip(
             Math.round(dragData.x / gridSize), 
