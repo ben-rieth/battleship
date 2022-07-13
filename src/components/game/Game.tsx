@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Board from "../board/Board";
+import Switch from "../switch/Switch";
 
 type GameMode = "place" | "play";
 
@@ -39,6 +40,7 @@ const Game = () => {
     return (
         <div className="flex flex-col">
             <div className="flex flex-col lg:flex-row justify-around">
+                <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board"/>
                 <div className="flex flex-col items-center gap-5">
                     <h2 className="font-bold text-3xl">Player 1's Board</h2>
                     <Board id={1} 
