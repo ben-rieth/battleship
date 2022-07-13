@@ -184,9 +184,11 @@ const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty 
     }
 
     const onShipDrop = (dragData: DraggableData, ship: ShipData) => {
+        const gridSize = window.screen.width >= 768 ? 48 : 24;
+
         tryToMoveShip(
-            Math.round(dragData.x / 48), 
-            Math.round(dragData.y / 48),
+            Math.round(dragData.x / gridSize), 
+            Math.round(dragData.y / gridSize),
             ship.length,
             ship.id,
             ship.currentDirection

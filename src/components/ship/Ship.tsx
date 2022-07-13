@@ -17,6 +17,8 @@ const Ship = ({ship, draggable=true,
 
     const [isBeingDragged, setIsBeingDragged] = useState<boolean>(false);
 
+    const gridSize = window.screen.width >= 768 ? 48 : 24;
+
     const dragStart = () => {
         setIsBeingDragged(true);
     }
@@ -30,8 +32,8 @@ const Ship = ({ship, draggable=true,
         <Rnd enableResizing={false}
             disableDragging={!draggable} 
             bounds="parent"
-            dragGrid={[48, 48]} 
-            position={{x: ship.boardX * 48, y: ship.boardY * 48}}
+            dragGrid={[gridSize, gridSize]} 
+            position={{x: ship.boardX * gridSize, y: ship.boardY * gridSize}}
             onDragStart={dragStart}
             onDragStop={dragEnd}
             className={`${!draggable && "pointer-events-none"} ${isBeingDragged && "z-50"}`}
@@ -46,7 +48,7 @@ const Ship = ({ship, draggable=true,
                 {ship.status.map((pos, index) => {
                     return (
                         <div key={index} 
-                            className={`w-12 h-12 flex items-center justify-center ${ship.color}`}
+                            className={`w-6 h-6 md:w-12 md:h-12 flex items-center justify-center ${ship.color}`}
                             onDoubleClick={doubleClickHandler}
                             data-testid="compartment"
                         >

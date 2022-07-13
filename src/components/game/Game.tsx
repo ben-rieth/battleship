@@ -38,7 +38,7 @@ const Game = () => {
 
     return (
         <div className="flex flex-col">
-            <div className="flex justify-around">
+            <div className="flex flex-col lg:flex-row justify-around">
                 <div className="flex flex-col items-center gap-5">
                     <h2 className="font-bold text-3xl">Player 1's Board</h2>
                     <Board id={1} 
@@ -56,9 +56,9 @@ const Game = () => {
                         goToNextTurn={onShipAttack}/>
                 </div>
             </div>
-            <h3 className="text-xl text-center">Information Box</h3>
+            {/* <h3 className="text-xl text-center">Information Box</h3>
             <button onClick={() => setTurn(turn + 1)}>Next Turn</button>
-            <p className="text-xl text-center">Turns: {turn}</p>
+            <p className="text-xl text-center">Turns: {turn}</p> */}
         </div>
     )
 }
