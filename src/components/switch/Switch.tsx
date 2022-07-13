@@ -26,7 +26,7 @@ const Switch = ({leftBtnText, rightBtnText,
     }
 
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center w-screen">
             <button 
                 onClick={onLeftClick}
                 className={`w-1/2 p-3 text-white text-xl font-semibold 

@@ -9,6 +9,7 @@ const Game = () => {
     const [mode, setMode] = useState<GameMode>("place");
     const [board1Clickable, setBoard1Clickable] = useState<boolean>(false);
     const [board2Clickable, setBoard2Clickable] = useState<boolean>(false);
+    const [boardVisible, setBoardVisible] = useState<1 | 2>(1);
 
     useEffect(() => {
         if(turn > 2) {
@@ -21,46 +22,57 @@ const Game = () => {
             case 1:
                 setBoard1Clickable(true);
                 setBoard2Clickable(false);
+                setBoardVisible(1);
                 break;
             case 2:
                 setBoard1Clickable(false);
                 setBoard2Clickable(true);
+                setBoardVisible(2);
                 break;
             default:
                 setBoard1Clickable(turn % 2 === 0);
                 setBoard2Clickable(turn % 2 === 1);
+                setBoardVisible(turn % 2 === 0 ? 1 : 2);
                 break;  
         }
     }, [turn]);
 
-    const onShipAttack = () => {
+    const nextTurn = () => {
         setTurn(turn + 1);
+    }
+
+    const switchVisibleBoard = () => {
+        setBoardVisible(boardVisible === 1 ? 2 : 1);
     }
 
     return (
         <div className="flex flex-col">
-            <div className="flex flex-col lg:flex-row justify-around">
-                <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board"/>
-                <div className="flex flex-col items-center gap-5">
+            <div className="flex flex-col items-center gap-4 lg:flex-row justify-around">
+                <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board" handleClick={switchVisibleBoard}/>
+                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 1 && "hidden"}`}>
                     <h2 className="font-bold text-3xl">Player 1's Board</h2>
                     <Board id={1} 
                         mode={mode} 
                         showShips={turn % 2 === 1} 
                         canInteract={board1Clickable}
-                        goToNextTurn={onShipAttack}/>
+                        goToNextTurn={nextTurn}/>
                 </div>
-                <div className="flex flex-col items-center gap-5"> 
+                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 2 && "hidden"}`}> 
                     <h2 className="font-bold text-3xl">Player 2's Board</h2>
                     <Board id={2} 
                         mode={mode} 
                         showShips={turn % 2 === 0} 
                         canInteract={board2Clickable}
-                        goToNextTurn={onShipAttack}/>
+                        goToNextTurn={nextTurn}/>
                 </div>
+                <button 
+                    onClick={nextTurn}
+                    className={`${mode === "play" && "hidden"} p-3 border-4 border-sky-800 rounded`}
+                >
+                    Done Placing Ships
+                </button>
             </div>
-            {/* <h3 className="text-xl text-center">Information Box</h3>
-            <button onClick={() => setTurn(turn + 1)}>Next Turn</button>
-            <p className="text-xl text-center">Turns: {turn}</p> */}
+            
         </div>
     )
 }
