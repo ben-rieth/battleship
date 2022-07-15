@@ -8,35 +8,40 @@ import HitIcon from './../../assets/images/hit.svg';
 type ShipProps = {
     ship: ShipData;
     draggable?: boolean;
-    doubleClickHandler?: () => void;
+    clickHandler?: () => void;
     shipDropHandler?: (data: DraggableData) => void;
 }
 
 const Ship = ({ship, draggable=true, 
-                doubleClickHandler=() => { /* empty handler */ }, 
+                clickHandler=() => { /* empty handler */ }, 
                 shipDropHandler=() => {/* empty handler */ }} : ShipProps) => {
 
     const [isBeingDragged, setIsBeingDragged] = useState<boolean>(false);
 
     const gridSize = getGridSizeBasedOnScreenWidth();
 
-    const dragStart = () => {
-        setIsBeingDragged(true);
+    const duringDrag = () => {
+        setIsBeingDragged(true)
     }
 
     const dragEnd = (_e: any, data: DraggableData) => {
-        setIsBeingDragged(false);
+        setTimeout(() => setIsBeingDragged(false), 0);
         shipDropHandler(data);
     }
 
-    console.log(ship.type, "- X:", ship.boardX * gridSize, "Y:", ship.boardY * gridSize);
+    const processClickIfNotDrag = () => {
+        if (!isBeingDragged) {
+            clickHandler();
+        }
+    }
+
     return (
         <Rnd enableResizing={false}
             disableDragging={!draggable} 
             bounds="parent"
             dragGrid={[gridSize, gridSize]} 
             position={{x: ship.boardX * gridSize, y: ship.boardY * gridSize}}
-            onDragStart={dragStart}
+            onDrag={duringDrag}
             onDragStop={dragEnd}
             className={`${!draggable && "pointer-events-none"} ${isBeingDragged && "z-50"}`}
         >
@@ -51,7 +56,7 @@ const Ship = ({ship, draggable=true,
                     return (
                         <div key={index} 
                             className={`w-6 h-6 xs:w-9 xs:h-9 lg:w-12 lg:h-12 flex items-center justify-center ${ship.color}`}
-                            onDoubleClick={doubleClickHandler}
+                            onClick={processClickIfNotDrag}
                             data-testid="compartment"
                         >
                             {pos === -1 ? <img src={HitIcon} alt="hit" className="w-10 h-10"/> : ""}

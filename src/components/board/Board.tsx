@@ -96,7 +96,7 @@ const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty 
         
     }
 
-    const handleShipDoubleClick = (shipId: number, ) => {
+    const handleShipClickToRotate = (shipId: number, ) => {
         //if the game is not in placing mode, do not handle the double click
         if(mode !== "place" || !canInteract) return;
 
@@ -172,7 +172,6 @@ const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty 
             shipDirection: string) => {
 
         if(spaceForShipClear(newX, newY, shipSize, shipId, shipDirection)) {
-            console.log("clear");
             setShips(s => s.map((boat) => {
                 if (boat.id === shipId) {
                     return {...boat, boardX: newX, boardY: newY}
@@ -271,7 +270,7 @@ const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty 
             })}
             {showShips && ships.map((ship) => {
                 return <Ship ship={ship} key={`${id}-${ship.type}`} draggable={mode === "place"}
-                            doubleClickHandler={() => handleShipDoubleClick(ship.id)} 
+                            clickHandler={() => handleShipClickToRotate(ship.id)} 
                             shipDropHandler={(data: DraggableData) => onShipDrop(data, ship)}/>
             })}
         </main>
