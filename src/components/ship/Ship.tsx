@@ -56,6 +56,7 @@ const Ship = ({ship, draggable=true,
                     return (
                         <div key={index} 
                             className={`w-6 h-6 xs:w-9 xs:h-9 lg:w-12 lg:h-12 flex items-center justify-center ${ship.color}`}
+                            onClick={processClickIfNotDrag}
                             onTouchEnd={processClickIfNotDrag}
                             data-testid="compartment"
                         >
