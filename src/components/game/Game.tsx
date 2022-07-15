@@ -51,7 +51,7 @@ const Game = () => {
                 <div className={`block md:hidden ${mode === "place" && "invisible"}`}>
                     <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board" handleClick={switchVisibleBoard}/>
                 </div>
-                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 1 && "hidden md:flex"}`}>
+                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 1 ? "invisible md:visible order-2" : "order-1"}`}>
                     <h2 className="font-bold text-3xl">Player 1's Board</h2>
                     <Board id={1} 
                         mode={mode} 
@@ -59,7 +59,7 @@ const Game = () => {
                         canInteract={board1Clickable}
                         goToNextTurn={nextTurn}/>
                 </div>
-                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 2 && "hidden md:flex"}`}> 
+                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 2 ? "invisible md:visible order-2" : "order-1"}`}> 
                     <h2 className="font-bold text-3xl">Player 2's Board</h2>
                     <Board id={2} 
                         mode={mode} 
