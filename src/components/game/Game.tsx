@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Board from "../board/Board";
+import PlacementModeModalContent from "../modal/PlacementModeModalContent";
+import PlayModeModalContent from "../modal/PlayModeModalContent";
 import SwitchUserModal from "../modal/SwitchUserModal";
 import Switch from "../switch/Switch";
 
@@ -43,14 +45,14 @@ const Game = () => {
 
     const goToSwitchScreen = () => {
         setTimeout(() => {
+            setTurn(turn + 1);
             setUsersSwitching(true);
         }, 750);
         
     }
 
-    const nextTurn = () => {
+    const nextTurn = () => {  
         setUsersSwitching(false);
-        setTurn(turn + 1);
     }
 
     const switchVisibleBoard = () => {
@@ -69,7 +71,12 @@ const Game = () => {
 
     return (
         <div>
-            <SwitchUserModal isOpen={usersSwitching} onClose={nextTurn}/>
+            <SwitchUserModal 
+                isOpen={usersSwitching} 
+                content={mode === "place" ?
+                            <PlacementModeModalContent handleBtnPress={nextTurn}/> :
+                            <PlayModeModalContent handleBtnPress={nextTurn} />}
+            />
             <div className="flex flex-col gap-5">
                 <div className="flex flex-col md:flex-row gap-4 justify-around">
                     <div className={`block md:hidden ${mode === "place" && "invisible"}`}>
