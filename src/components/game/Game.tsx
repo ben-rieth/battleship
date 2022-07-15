@@ -76,7 +76,7 @@ const Game = () => {
                     <h2 className="font-bold text-3xl">{turn % 2 === 1 ? "Your Board" : "Enemy's Board"}</h2>
                     <Board id={1} 
                         mode={mode} 
-                        showShips={turn % 2 === 1} 
+                        showShips={turn % 2 === 1 && !usersSwitching} 
                         canInteract={board1Clickable}
                         goToNextTurn={goToSwitchScreen}/>
                 </div>
@@ -84,7 +84,7 @@ const Game = () => {
                     <h2 className="font-bold text-3xl">{turn % 2 === 0 ? "Your Board" : "Enemy's Board"}</h2>
                     <Board id={2} 
                         mode={mode} 
-                        showShips={turn % 2 === 0} 
+                        showShips={turn % 2 === 0 && !usersSwitching} 
                         canInteract={board2Clickable}
                         goToNextTurn={goToSwitchScreen}/>
                 </div>
