@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Board from "../board/Board";
+import Header from "../header/Header";
 import PlacementModeModalContent from "../modal/PlacementModeModalContent";
 import PlayModeModalContent from "../modal/PlayModeModalContent";
 import SwitchUserModal from "../modal/SwitchUserModal";
@@ -68,7 +69,9 @@ const Game = () => {
                             <PlacementModeModalContent handleBtnPress={nextTurn}/> :
                             <PlayModeModalContent handleBtnPress={nextTurn} />}
             />
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
+                <Header />
+                <h2 className="text-center text-xl">It is {turn % 2 === 1 ? "Player 1's" : "Player 2's"} turn!</h2>
                 <div className="flex flex-col md:flex-row gap-4 justify-around">
                     <div className={`block md:hidden ${mode === "place" && "invisible"}`}>
                         <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board" handleClick={switchVisibleBoard}/>
