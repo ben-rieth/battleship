@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Board from "../board/Board";
+import SwitchUserModal from "../modal/SwitchUserModal";
 import Switch from "../switch/Switch";
 
 type GameMode = "place" | "play";
@@ -57,44 +58,47 @@ const Game = () => {
         
     }
 
-    if(usersSwitching) {
-        return <div>
-            <p>Time to switch players!</p>
-            <p>Click below when you've gotten the device from the other player!</p>
-            <button onClick={nextTurn}>Switch!</button>;
-        </div> 
+    // if(usersSwitching) {
+    //     return <div>
+    //         <p>Time to switch players!</p>
+    //         <p>Click below when you've gotten the device from the other player!</p>
+    //         <button onClick={nextTurn}>Switch!</button>;
+    //     </div> 
         
-    }
+    // }
 
     return (
-        <div className="flex flex-col gap-5">
-            <div className="flex flex-col md:flex-row gap-4 justify-around">
-                <div className={`block md:hidden ${mode === "place" && "invisible"}`}>
-                    <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board" handleClick={switchVisibleBoard}/>
+        <div>
+            <SwitchUserModal isOpen={usersSwitching} onClose={nextTurn}/>
+            <div className="flex flex-col gap-5">
+                <div className="flex flex-col md:flex-row gap-4 justify-around">
+                    <div className={`block md:hidden ${mode === "place" && "invisible"}`}>
+                        <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board" handleClick={switchVisibleBoard}/>
+                    </div>
+                    <div className={`flex flex-col items-center gap-5 ${boardVisible !== 1 ? "invisible md:visible order-2" : "order-1"}`}>
+                        <h2 className="font-bold text-3xl">{turn % 2 === 1 ? "Your Board" : "Enemy's Board"}</h2>
+                        <Board id={1} 
+                            mode={mode} 
+                            showShips={turn % 2 === 1 && !usersSwitching} 
+                            canInteract={board1Clickable}
+                            goToNextTurn={goToSwitchScreen}/>
+                    </div>
+                    <div className={`flex flex-col items-center gap-5 ${boardVisible !== 2 ? "invisible md:visible order-2" : "order-1"}`}> 
+                        <h2 className="font-bold text-3xl">{turn % 2 === 0 ? "Your Board" : "Enemy's Board"}</h2>
+                        <Board id={2} 
+                            mode={mode} 
+                            showShips={turn % 2 === 0 && !usersSwitching} 
+                            canInteract={board2Clickable}
+                            goToNextTurn={goToSwitchScreen}/>
+                    </div>
                 </div>
-                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 1 ? "invisible md:visible order-2" : "order-1"}`}>
-                    <h2 className="font-bold text-3xl">{turn % 2 === 1 ? "Your Board" : "Enemy's Board"}</h2>
-                    <Board id={1} 
-                        mode={mode} 
-                        showShips={turn % 2 === 1 && !usersSwitching} 
-                        canInteract={board1Clickable}
-                        goToNextTurn={goToSwitchScreen}/>
-                </div>
-                <div className={`flex flex-col items-center gap-5 ${boardVisible !== 2 ? "invisible md:visible order-2" : "order-1"}`}> 
-                    <h2 className="font-bold text-3xl">{turn % 2 === 0 ? "Your Board" : "Enemy's Board"}</h2>
-                    <Board id={2} 
-                        mode={mode} 
-                        showShips={turn % 2 === 0 && !usersSwitching} 
-                        canInteract={board2Clickable}
-                        goToNextTurn={goToSwitchScreen}/>
-                </div>
+                <button 
+                    onClick={goToSwitchScreen}
+                    className={`${mode === "play" && "hidden"} p-3 border-4 border-sky-800 rounded w-1/4 min-w-fit mx-auto`}
+                >
+                    Done Placing Ships
+                </button>
             </div>
-            <button 
-                onClick={goToSwitchScreen}
-                className={`${mode === "play" && "hidden"} p-3 border-4 border-sky-800 rounded w-1/4 min-w-fit mx-auto`}
-            >
-                Done Placing Ships
-            </button>
         </div>
     )
 }
