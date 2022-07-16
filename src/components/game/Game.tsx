@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Board from "../board/Board";
 import Header from "../header/Header";
+import Log from "../log/Log";
 import PlacementModeModalContent from "../modal/PlacementModeModalContent";
 import PlayModeModalContent from "../modal/PlayModeModalContent";
 import SwitchUserModal from "../modal/SwitchUserModal";
@@ -101,6 +102,7 @@ const Game = () => {
                 >
                     Done Placing Ships
                 </button>
+                <Log />
             </div>
         </div>
     )
