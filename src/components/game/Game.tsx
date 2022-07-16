@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Message } from "../../services/types/Message";
 import Board from "../board/Board";
 import Header from "../header/Header";
 import Log from "../log/Log";
@@ -16,6 +17,7 @@ const Game = () => {
     const [board1Clickable, setBoard1Clickable] = useState<boolean>(false);
     const [board2Clickable, setBoard2Clickable] = useState<boolean>(false);
     const [boardVisible, setBoardVisible] = useState<1 | 2>(1);
+    const [logMessages, setLogMessages] = useState<Message[]>([]);
 
     //switch to play mode after 
     useEffect(() => {
@@ -102,7 +104,7 @@ const Game = () => {
                 >
                     Done Placing Ships
                 </button>
-                <Log />
+                <Log messages={logMessages}/>
             </div>
         </div>
     )
