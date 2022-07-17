@@ -20,7 +20,7 @@ type BoardProps = {
 
 const Board = ({id, mode, showShips, canInteract,
                 reportAttack=(_x: number, _y: number, _result: string) => {/* empty handler */},
-                reportShipSunk=(shipName: string) => {/* empty handler */}} : BoardProps) => {
+                reportShipSunk=(_shipName: string) => {/* empty handler */}} : BoardProps) => {
     const [board, setBoard] = useState<number[][]>([...INITIAL_BOARD]);
     const [ships, setShips] = useState<ShipData[]>([...INITIAL_SHIPS]);
 

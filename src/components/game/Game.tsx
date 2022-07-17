@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { flushSync } from "react-dom";
 import { Message, MessageSender } from "../../services/types/Message";
 import Board from "../board/Board";
 import Header from "../header/Header";
