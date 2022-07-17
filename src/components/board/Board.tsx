@@ -13,10 +13,13 @@ type BoardProps = {
     mode: "place" | "play";
     canInteract: boolean;
     showShips: boolean;
-    goToNextTurn?: () => void;
+    reportAttack?: (x: number, y: number, result: string) => void;
+    reportShipSunk?: (shipName: string) => void;
+    reportAllSunk?: () => void;
 }
 
-const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty handler */}} : BoardProps) => {
+const Board = ({id, mode, showShips, canInteract,
+                reportAttack=(_x: number, _y: number, _result: string) => {/* empty handler */}} : BoardProps) => {
     const [board, setBoard] = useState<number[][]>([...INITIAL_BOARD]);
     const [ships, setShips] = useState<ShipData[]>([...INITIAL_SHIPS]);
 
@@ -225,10 +228,8 @@ const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty 
         const attackedSquare = board[y][x];
         let attackResult : -1 | -2;
         if (attackedSquare === 0) {
-            console.log("miss");
             attackResult = -1;
         } else if (attackedSquare > 0) {
-            console.log("hit")
             attackResult = -2;
 
             processShipHit(attackedSquare, x, y);  
@@ -248,7 +249,8 @@ const Board = ({id, mode, showShips, canInteract, goToNextTurn= () => {/* empty 
             })
         );
 
-        goToNextTurn();
+        const result = attackResult === -1 ? "miss" : "hit";
+        reportAttack(x, y, result);
     }
 
     useEffect(() => {

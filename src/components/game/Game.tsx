@@ -70,6 +70,12 @@ const Game = () => {
         goToSwitchScreen()
     }
 
+    const handleAttack = (attackX: number, attackY: number, result: string) => {
+        const currentPlayer = turn % 2 === 1 ? "Player 1" : "Player 2";
+        addNewLogMessage(`${result} at (x=${attackX}, y=${attackY})`, currentPlayer);
+        goToSwitchScreen();
+    }   
+
     const addNewLogMessage = (newMessage: string, playerType: MessageSender) => {
 
         setLogMessages(
@@ -99,7 +105,7 @@ const Game = () => {
                             mode={mode} 
                             showShips={turn % 2 === 1 && !usersSwitching} 
                             canInteract={board1Clickable}
-                            goToNextTurn={goToSwitchScreen}/>
+                            reportAttack={handleAttack}/>
                     </div>
                     <div className={`flex flex-col items-center gap-1 ${boardVisible !== 2 ? "invisible md:visible order-2" : "order-1"}`}> 
                         <h2 className="font-bold text-3xl">{turn % 2 === 0 ? "Your Board" : "Enemy's Board"}</h2>
@@ -108,7 +114,7 @@ const Game = () => {
                             mode={mode} 
                             showShips={turn % 2 === 0 && !usersSwitching} 
                             canInteract={board2Clickable}
-                            goToNextTurn={goToSwitchScreen}/>
+                            reportAttack={handleAttack}/>
                     </div>
                 </div>
                 <button 
