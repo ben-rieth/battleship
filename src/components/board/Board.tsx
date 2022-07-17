@@ -20,7 +20,8 @@ type BoardProps = {
 
 const Board = ({id, mode, showShips, canInteract,
                 reportAttack=(_x: number, _y: number, _result: string) => {/* empty handler */},
-                reportShipSunk=(_shipName: string) => {/* empty handler */}} : BoardProps) => {
+                reportShipSunk=(_shipName: string) => {/* empty handler */},
+                reportAllSunk=() => {/* empty handler */}} : BoardProps) => {
     const [board, setBoard] = useState<number[][]>([...INITIAL_BOARD]);
     const [ships, setShips] = useState<ShipData[]>([...INITIAL_SHIPS]);
 
@@ -271,7 +272,7 @@ const Board = ({id, mode, showShips, canInteract,
             const allSunk : boolean = ships.every((boat) => boat.status.every((position) => position === -1));
 
             if(allSunk) {
-                console.log("All ships sunk on board ", id);
+                reportAllSunk();
             }
         }
     }, [ships, mode, id])

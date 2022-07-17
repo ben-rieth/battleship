@@ -81,6 +81,12 @@ const Game = () => {
         const attackedPlayer = turn % 2 === 1 ? "Player 2" : "Player 1";
 
         addNewLogMessage(`Sunk ${attackedPlayer}'s ${shipType}!`, currentPlayer);
+        goToSwitchScreen();
+    }
+
+    const handleGameOver = () => {
+        const currentPlayer = turn % 2 === 1 ? "Player 1" : "Player 2";
+        addNewLogMessage('is the Winner!', currentPlayer);
     }
 
     const addNewLogMessage = (newMessage: string, playerType: MessageSender) => {
@@ -112,7 +118,8 @@ const Game = () => {
                             showShips={turn % 2 === 1 && !usersSwitching} 
                             canInteract={board1Clickable}
                             reportAttack={handleAttack}
-                            reportShipSunk={handleSunkShip}/>
+                            reportShipSunk={handleSunkShip}
+                            reportAllSunk={handleGameOver}/>
                     </div>
                     <div className={`flex flex-col items-center gap-1 ${boardVisible !== 2 ? "invisible md:visible order-2" : "order-1"}`}> 
                         <h2 className="font-bold text-3xl">{turn % 2 === 0 ? "Your Board" : "Enemy's Board"}</h2>
