@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Message } from "../../services/types/Message";
+import { Message, MessageSender } from "../../services/types/Message";
 import Board from "../board/Board";
 import Header from "../header/Header";
 import Log from "../log/Log";
@@ -64,6 +64,19 @@ const Game = () => {
         
     }
 
+    const finishPlacingShips = () => {
+        const currentPlayer = turn % 2 === 1 ? "Player 1" : "Player 2";
+        addNewLogMessage("Finished placing their ships!", currentPlayer);
+        goToSwitchScreen()
+    }
+
+    const addNewLogMessage = (newMessage: string, playerType: MessageSender) => {
+
+        setLogMessages(
+            [...logMessages, {text: newMessage, player: playerType}]
+        )
+    }
+
     return (
         <div>
             <SwitchUserModal 
@@ -99,7 +112,7 @@ const Game = () => {
                     </div>
                 </div>
                 <button 
-                    onClick={goToSwitchScreen}
+                    onClick={finishPlacingShips}
                     className={`${mode === "play" && "hidden"} p-3 border-4 border-sky-800 rounded w-1/4 min-w-fit mx-auto`}
                 >
                     Done Placing Ships
