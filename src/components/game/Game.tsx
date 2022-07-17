@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 import { Message, MessageSender } from "../../services/types/Message";
 import Board from "../board/Board";
 import Header from "../header/Header";
@@ -74,13 +75,19 @@ const Game = () => {
         const currentPlayer = turn % 2 === 1 ? "Player 1" : "Player 2";
         addNewLogMessage(`${result} at (x=${attackX}, y=${attackY})`, currentPlayer);
         goToSwitchScreen();
-    }   
+    }  
+    
+    const handleSunkShip = (shipType: string) => {
+        const currentPlayer = turn % 2 === 1 ? "Player 1" : "Player 2";
+        const attackedPlayer = turn % 2 === 1 ? "Player 2" : "Player 1";
+
+        addNewLogMessage(`Sunk ${attackedPlayer}'s ${shipType}!`, currentPlayer);
+    }
 
     const addNewLogMessage = (newMessage: string, playerType: MessageSender) => {
-
         setLogMessages(
-            [...logMessages, {text: newMessage, player: playerType}]
-        )
+            logMessages.concat([{text: newMessage, player: playerType}])
+        );
     }
 
     return (
@@ -105,7 +112,8 @@ const Game = () => {
                             mode={mode} 
                             showShips={turn % 2 === 1 && !usersSwitching} 
                             canInteract={board1Clickable}
-                            reportAttack={handleAttack}/>
+                            reportAttack={handleAttack}
+                            reportShipSunk={handleSunkShip}/>
                     </div>
                     <div className={`flex flex-col items-center gap-1 ${boardVisible !== 2 ? "invisible md:visible order-2" : "order-1"}`}> 
                         <h2 className="font-bold text-3xl">{turn % 2 === 0 ? "Your Board" : "Enemy's Board"}</h2>
@@ -114,7 +122,8 @@ const Game = () => {
                             mode={mode} 
                             showShips={turn % 2 === 0 && !usersSwitching} 
                             canInteract={board2Clickable}
-                            reportAttack={handleAttack}/>
+                            reportAttack={handleAttack}
+                            reportShipSunk={handleSunkShip}/>
                     </div>
                 </div>
                 <button 

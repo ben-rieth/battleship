@@ -19,7 +19,8 @@ type BoardProps = {
 }
 
 const Board = ({id, mode, showShips, canInteract,
-                reportAttack=(_x: number, _y: number, _result: string) => {/* empty handler */}} : BoardProps) => {
+                reportAttack=(_x: number, _y: number, _result: string) => {/* empty handler */},
+                reportShipSunk=(shipName: string) => {/* empty handler */}} : BoardProps) => {
     const [board, setBoard] = useState<number[][]>([...INITIAL_BOARD]);
     const [ships, setShips] = useState<ShipData[]>([...INITIAL_SHIPS]);
 
@@ -208,18 +209,32 @@ const Board = ({id, mode, showShips, canInteract,
         });
     }
 
+    const shipSunk = (statusArray: number[]) => {
+        return statusArray.every((position) => position === -1);
+    }
+
     const processShipHit = (hitShipId: number, hitSquareX: number, hitSquareY: number) => {
-        setShips(s => s.map((boat) => {
+        const hitShip = ships.find(boat => boat.id === hitShipId);
+
+        const hitShipWithUpdatedStatus : ShipData = {
+            ...hitShip!,
+            status: hitShip!.currentDirection === "horizontal" ?
+                getNewBoatStatus(hitShip!.status, hitSquareX - hitShip!.boardX) : 
+                getNewBoatStatus(hitShip!.status, hitSquareY - hitShip!.boardY)
+        }
+
+        setShips(ships.map((boat) => {
             if (boat.id === hitShipId) {
-                return {
-                    ...boat,
-                    status: boat.currentDirection === "horizontal" ? 
-                                getNewBoatStatus(boat.status, hitSquareX - boat.boardX) : 
-                                getNewBoatStatus(boat.status, hitSquareY - boat.boardY)
-                }
+                return hitShipWithUpdatedStatus;
             }
             return boat;
         }));
+
+        if(shipSunk(hitShipWithUpdatedStatus.status)) {
+            reportShipSunk(hitShip!.type);
+        } else {
+            reportAttack(hitSquareX, hitSquareY, "Hit");
+        }
     }
 
     const onAttackClick = (x: number, y:number) => {
@@ -229,6 +244,7 @@ const Board = ({id, mode, showShips, canInteract,
         let attackResult : -1 | -2;
         if (attackedSquare === 0) {
             attackResult = -1;
+            reportAttack(x, y, "Miss")
         } else if (attackedSquare > 0) {
             attackResult = -2;
 
@@ -248,9 +264,6 @@ const Board = ({id, mode, showShips, canInteract,
                 })
             })
         );
-
-        const result = attackResult === -1 ? "miss" : "hit";
-        reportAttack(x, y, result);
     }
 
     useEffect(() => {
