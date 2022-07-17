@@ -275,7 +275,7 @@ const Board = ({id, mode, showShips, canInteract,
                 reportAllSunk();
             }
         }
-    }, [ships, mode, id])
+    }, [ships, mode, id, reportAllSunk]);
 
     return (
         <main className="grid grid-cols-10 w-fit h-fit relative" key={id}>

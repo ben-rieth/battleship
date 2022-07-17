@@ -96,6 +96,34 @@ describe("Test Playing Mode", () => {
     attackTurn(2, 1, 2, "miss");
     attackTurn(1, 5, 2, "miss"); 
 
+    attackTurn(2, 7, 8, "hit");
+    attackTurn(1, 0, 0, "hit");
+
+    attackTurn(2, 6, 8, "hit");
+    attackTurn(1, 1, 0, "hit"); //sinks player 1's destroyer
+
+    attackTurn(2, 5, 8, "hit"); //sinks player 2's submarine
+    attackTurn(1, 1, 2, "miss");
+
+    attackTurn(2, 2, 4, "hit");
+    attackTurn(1, 9, 5, "miss");
+
+    attackTurn(2, 3, 4, "hit");
+    attackTurn(1, 8, 5, "miss");
+
+    attackTurn(2, 4, 4, "hit"); //sinks player 2's cruiser
+    attackTurn(1, 5, 5, "miss");
+
+    attackTurn(2, 0, 9, "hit");
+    attackTurn(1, 2, 9, "miss");
+
+    attackTurn(2, 0, 8, "hit");
+    attackTurn(1, 4, 9, "miss");
+
+    attackTurn(2, 0, 7, "hit");
+    attackTurn(1, 6, 9, "miss");
+
+    attackTurn(2, 0, 6, "hit"); //sinks player 2's battleship, winning the game
 
   })
 });

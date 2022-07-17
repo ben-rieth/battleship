@@ -51,7 +51,7 @@ const Game = () => {
         setTimeout(() => {
             setTurn(turn + 1);
             setUsersSwitching(true);
-        }, 750);
+        }, 250);
         
     }
 
