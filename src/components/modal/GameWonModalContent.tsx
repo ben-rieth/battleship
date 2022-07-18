@@ -7,7 +7,9 @@ type Props = {
 const GameWonModalContent = ({winner} : Props) => {
     return (
         <>
-            <p>{winner} has won!</p>
+            <p className="text-center text-lg">{winner} has won!</p>
+            <button>Rematch</button>
+            <button>New Game</button>
         </>
     )
 }
