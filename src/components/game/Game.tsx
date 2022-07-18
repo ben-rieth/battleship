@@ -8,6 +8,7 @@ import PlacementModeModalContent from "../modal/PlacementModeModalContent";
 import PlayModeModalContent from "../modal/PlayModeModalContent";
 import Modal from "../modal/Modal";
 import Switch from "../switch/Switch";
+import GameWonModalContent from "../modal/GameWonModalContent";
 
 type GameMode = "place" | "play";
 
@@ -55,7 +56,7 @@ const Game = () => {
         setTimeout(() => {
             setTurn(turn + 1);
             setUsersSwitching(true);
-        }, 250);
+        }, 0);
         
     }
 
@@ -75,6 +76,7 @@ const Game = () => {
     }
 
     const handleAttack = (attackX: number, attackY: number, result: string) => {
+        console.log('attack');
         const currentPlayer = turn % 2 === 1 ? "Player 1" : "Player 2";
         addNewLogMessage(`${result} at (x=${attackX}, y=${attackY})`, currentPlayer);
         goToSwitchScreen();
@@ -90,6 +92,8 @@ const Game = () => {
 
     const handleGameOver = () => {
         const currentPlayer = turn % 2 === 1 ? "Player 1" : "Player 2";
+        setWinner(currentPlayer);
+
         addNewLogMessage('is the Winner!', currentPlayer);
     }
 
@@ -99,13 +103,21 @@ const Game = () => {
         );
     }
 
+    const getModalContent = () : JSX.Element => {
+        if (winner) {
+            return <GameWonModalContent winner={winner}/>
+        } else if (mode === "place") {
+            return <PlacementModeModalContent handleBtnPress={nextTurn}/>;
+        } else {
+            return <PlayModeModalContent handleBtnPress={nextTurn} />;
+        }
+    }
+
     return (
         <div>
             <Modal 
-                isOpen={usersSwitching} 
-                content={mode === "place" ?
-                            <PlacementModeModalContent handleBtnPress={nextTurn}/> :
-                            <PlayModeModalContent handleBtnPress={nextTurn} />}
+                isOpen={usersSwitching || Boolean(winner)} 
+                content={getModalContent()}
             />
             <div className="flex flex-col gap-2">
                 <Header />
@@ -133,7 +145,8 @@ const Game = () => {
                             showShips={turn % 2 === 0 && !usersSwitching} 
                             canInteract={board2Clickable}
                             reportAttack={handleAttack}
-                            reportShipSunk={handleSunkShip}/>
+                            reportShipSunk={handleSunkShip}
+                            reportAllSunk={handleGameOver}/>
                     </div>
                 </div>
                 <button 
