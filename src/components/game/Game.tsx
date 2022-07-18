@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Message, MessageSender } from "../../services/types/Message";
+import { Message } from "../../services/types/Message";
+import { Player } from "../../services/types/Player";
 import Board from "../board/Board";
 import Header from "../header/Header";
 import Log from "../log/Log";
@@ -14,9 +15,12 @@ const Game = () => {
     const [turn, setTurn] = useState<number>(1);
     const [usersSwitching, setUsersSwitching] = useState<boolean>(false);
     const [mode, setMode] = useState<GameMode>("place");
+    const [winner, setWinner] = useState<Player | undefined>();
+
     const [board1Clickable, setBoard1Clickable] = useState<boolean>(false);
     const [board2Clickable, setBoard2Clickable] = useState<boolean>(false);
     const [boardVisible, setBoardVisible] = useState<1 | 2>(1);
+
     const [logMessages, setLogMessages] = useState<Message[]>([]);
 
     //switch to play mode after 
@@ -89,7 +93,7 @@ const Game = () => {
         addNewLogMessage('is the Winner!', currentPlayer);
     }
 
-    const addNewLogMessage = (newMessage: string, playerType: MessageSender) => {
+    const addNewLogMessage = (newMessage: string, playerType: Player) => {
         setLogMessages(
             logMessages.concat([{text: newMessage, player: playerType}])
         );

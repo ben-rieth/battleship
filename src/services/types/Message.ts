@@ -1,6 +1,6 @@
-export type MessageSender = "Player 1" | "Player 2" | "Sys";
+import { Player } from "./Player";
 
 export type Message = {
     text: string;
-    player: MessageSender;
+    player: Player;
 }
