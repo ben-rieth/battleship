@@ -9,6 +9,7 @@ import PlayModeModalContent from "../modal/PlayModeModalContent";
 import Modal from "../modal/Modal";
 import Switch from "../switch/Switch";
 import GameWonModalContent from "../modal/GameWonModalContent";
+import Button from "../button/Button";
 
 type GameMode = "place" | "play";
 
@@ -119,7 +120,7 @@ const Game = () => {
                 isOpen={usersSwitching || Boolean(winner)} 
                 content={getModalContent()}
             />
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col items-center gap-2">
                 <Header />
                 <h2 className="text-center text-xl">It is {turn % 2 === 1 ? "Player 1's" : "Player 2's"} turn!</h2>
                 <div className="flex flex-col md:flex-row gap-4 justify-around">
@@ -149,12 +150,9 @@ const Game = () => {
                             reportAllSunk={handleGameOver}/>
                     </div>
                 </div>
-                <button 
-                    onClick={finishPlacingShips}
-                    className={`${mode === "play" && "hidden"} p-3 border-4 border-sky-800 rounded w-1/4 min-w-fit mx-auto`}
-                >
-                    Done Placing Ships
-                </button>
+                <div className={`${mode === "play" && "hidden"}`}>
+                    <Button buttonText="Done Placing Ships" handleClick={goToSwitchScreen}/>
+                </div>
                 <Log messages={logMessages}/>
             </div>
         </div>
