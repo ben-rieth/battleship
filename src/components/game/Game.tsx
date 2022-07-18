@@ -6,7 +6,7 @@ import Header from "../header/Header";
 import Log from "../log/Log";
 import PlacementModeModalContent from "../modal/PlacementModeModalContent";
 import PlayModeModalContent from "../modal/PlayModeModalContent";
-import SwitchUserModal from "../modal/SwitchUserModal";
+import Modal from "../modal/Modal";
 import Switch from "../switch/Switch";
 
 type GameMode = "place" | "play";
@@ -101,7 +101,7 @@ const Game = () => {
 
     return (
         <div>
-            <SwitchUserModal 
+            <Modal 
                 isOpen={usersSwitching} 
                 content={mode === "place" ?
                             <PlacementModeModalContent handleBtnPress={nextTurn}/> :

@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import SwitchUserModal from './SwitchUserModal';
+import Modal from './Modal';
 import PlacementModeModalContent from './PlacementModeModalContent';
 import PlayModeModalContent from './PlayModeModalContent';
 
 describe("Testing SwitchUserModal Component", () => {
     it("renders correct button text in placement mode", () => {
-        render(<SwitchUserModal 
+        render(<Modal 
                 isOpen={true} 
                 content={<PlacementModeModalContent handleBtnPress={jest.fn()}/>} />);
 
@@ -17,7 +17,7 @@ describe("Testing SwitchUserModal Component", () => {
     });
 
     it("renders correct button text in play mode", () => {
-        render(<SwitchUserModal 
+        render(<Modal 
                 isOpen={true} 
                 content={<PlayModeModalContent handleBtnPress={jest.fn()}/>} />);
 

@@ -1,9 +1,9 @@
-type SwitchModalProps = {
+type ModalProps = {
     content: JSX.Element;
     isOpen: boolean;
 }
 
-const SwitchUserModal = ({content, isOpen}: SwitchModalProps) => {
+const Modal = ({content, isOpen}: ModalProps) => {
 
     return (
         <div className={`fixed z-50 left-0 top-0 w-screen h-screen bg-black/50 ${!isOpen && "hidden"}`}>
@@ -14,4 +14,4 @@ const SwitchUserModal = ({content, isOpen}: SwitchModalProps) => {
     )
 }
 
-export default SwitchUserModal;
+export default Modal;
