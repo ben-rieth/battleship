@@ -11,6 +11,7 @@ import Switch from "../switch/Switch";
 import GameWonModalContent from "../modal/GameWonModalContent";
 import Button from "../button/Button";
 import BoardContainer from "../board_container/BoardContainer";
+import TurnDisplay from "../header/TurnDisplay";
 
 type GameMode = "place" | "play";
 
@@ -126,7 +127,7 @@ const Game = () => {
             />
             <div className="flex flex-col items-center gap-2">
                 <Header />
-                <h2 className="text-center text-xl">It is {turn % 2 === 1 ? "Player 1's" : "Player 2's"} turn!</h2>
+                <TurnDisplay player={turn % 2 === 1 ? "Player 1" : "Player 2"} />
                 <div className="flex flex-col md:flex-row gap-4 justify-around">
                     <div className={`block md:hidden ${mode === "place" && "invisible"}`}>
                         <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board" handleClick={switchVisibleBoard}/>
