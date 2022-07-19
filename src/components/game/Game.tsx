@@ -106,7 +106,10 @@ const Game = () => {
 
     const getModalContent = () : JSX.Element => {
         if (winner) {
-            return <GameWonModalContent winner={winner}/>
+            return <GameWonModalContent 
+                        winner={winner}
+                        handleRematchClick={() => console.log("")}
+                        handleNewGameClick={() => console.log("")} />
         } else if (mode === "place") {
             return <PlacementModeModalContent handleBtnPress={nextTurn}/>;
         } else {
@@ -151,7 +154,7 @@ const Game = () => {
                     </div>
                 </div>
                 <div className={`${mode === "play" && "hidden"}`}>
-                    <Button buttonText="Done Placing Ships" handleClick={goToSwitchScreen}/>
+                    <Button buttonText="Done Placing Ships" handleClick={finishPlacingShips}/>
                 </div>
                 <Log messages={logMessages}/>
             </div>

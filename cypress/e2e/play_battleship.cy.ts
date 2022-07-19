@@ -123,7 +123,7 @@ describe("Test Playing Mode", () => {
     attackTurn(2, 0, 7, "hit");
     attackTurn(1, 6, 9, "miss");
 
-    attackTurn(2, 0, 6, "hit"); //sinks player 2's battleship, winning the game
-
+    cy.get(`[data-testid="square-${2}-${6}-${0}"]`).click(); //sinks player 2's battleship, winning the game
+    
   })
 });

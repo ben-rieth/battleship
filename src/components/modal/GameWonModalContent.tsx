@@ -3,6 +3,8 @@ import Button from "../button/Button";
 
 type Props = {
     winner: Player;
+    handleRematchClick: () => void;
+    handleNewGameClick: () => void;
 }
 
 const GameWonModalContent = ({winner} : Props) => {
