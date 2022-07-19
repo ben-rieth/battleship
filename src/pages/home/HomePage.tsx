@@ -11,14 +11,17 @@ const HomePage = () => {
             <Header />
             <div className="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-10 mt-5">
                 <GameModeButton 
+                    linksTo="/game/one-device"
                     modeName="Play Against a Friend" 
                     subtitle="One Device" 
                     imgURL={SameDeviceIcon}/>
                 <GameModeButton 
+                    linksTo="/"
                     modeName="Play Against a Friend" 
                     subtitle="Peer to Peer" 
                     imgURL={P2PIcon}/>
                 <GameModeButton 
+                    linksTo="/"
                     modeName="Play Against a Bot" 
                     subtitle="Test Your Skills" 
                     imgURL={BotIcon}/>

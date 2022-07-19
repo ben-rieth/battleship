@@ -4,10 +4,15 @@ import '@testing-library/jest-dom';
 
 import GameModeButton from './GameModeButton';
 import RobotIcon from './../../assets/images/robot.svg';
+import { BrowserRouter } from 'react-router-dom';
 
 describe("Testing GameModeButton component", () => {
     it("renders given header, subtitle, and image", () => {
-        render(<GameModeButton modeName="mode" subtitle="subtitle" imgURL={RobotIcon}/>);
+        render(
+            <BrowserRouter>
+                <GameModeButton modeName="mode" subtitle="subtitle" imgURL={RobotIcon} linksTo="/"/> 
+            </BrowserRouter>
+        );
 
         const img = screen.getByRole('img');
 
