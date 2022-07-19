@@ -113,12 +113,16 @@ const Game = () => {
         window.location.reload();
     }
 
+    const handleNewGame = () => {
+        navigate('/', {replace: true});
+    }
+
     const getModalContent = () : JSX.Element => {
         if (winner) {
             return <GameWonModalContent 
                         winner={winner}
                         handleRematchClick={handleRematch}
-                        handleNewGameClick={() => console.log("")} />
+                        handleNewGameClick={handleNewGame} />
         } else if (mode === "place") {
             return <PlacementModeModalContent handleBtnPress={nextTurn}/>;
         } else {

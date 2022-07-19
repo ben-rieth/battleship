@@ -128,7 +128,7 @@ describe("Test Playing Mode", () => {
     //check to make sure modal displays correct information
     cy.contains('Player 2 has won!');
     cy.contains('button', 'New Game');
-    cy.contains('button', 'Rematch').click();
+    cy.contains('button', 'Rematch');
     
   })
 });
