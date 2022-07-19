@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Message } from "../../services/types/Message";
 import { Player } from "../../services/types/Player";
 import Board from "../board/Board";
@@ -26,6 +27,8 @@ const Game = () => {
     const [boardVisible, setBoardVisible] = useState<1 | 2>(1);
 
     const [logMessages, setLogMessages] = useState<Message[]>([]);
+
+    const navigate = useNavigate();
 
     //switch to play mode after 
     useEffect(() => {
@@ -106,11 +109,15 @@ const Game = () => {
         );
     }
 
+    const handleRematch = () => {
+        window.location.reload();
+    }
+
     const getModalContent = () : JSX.Element => {
         if (winner) {
             return <GameWonModalContent 
                         winner={winner}
-                        handleRematchClick={() => console.log("")}
+                        handleRematchClick={handleRematch}
                         handleNewGameClick={() => console.log("")} />
         } else if (mode === "place") {
             return <PlacementModeModalContent handleBtnPress={nextTurn}/>;

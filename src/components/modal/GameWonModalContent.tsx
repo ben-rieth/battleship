@@ -7,13 +7,13 @@ type Props = {
     handleNewGameClick: () => void;
 }
 
-const GameWonModalContent = ({winner} : Props) => {
+const GameWonModalContent = ({winner, handleRematchClick} : Props) => {
     return (
         <>
             <p className="text-center text-2xl">{winner} has won!</p>
             <Button 
                 buttonText="Rematch" 
-                handleClick={()=> console.log("click")} />
+                handleClick={handleRematchClick} />
             <Button 
                 buttonText="New Game" 
                 handleClick={()=> console.log("click")} />
