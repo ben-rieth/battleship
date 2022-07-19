@@ -9,13 +9,13 @@ const HomePage = () => {
     return (
         <div>
             <Header />
-            <div className="flex justify-center gap-10">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-10 mt-5">
                 <GameModeButton 
-                    modeName="Play with a Friend" 
+                    modeName="Play Against a Friend" 
                     subtitle="One Device" 
                     imgURL={SameDeviceIcon}/>
                 <GameModeButton 
-                    modeName="Play with a Friend" 
+                    modeName="Play Against a Friend" 
                     subtitle="Peer to Peer" 
                     imgURL={P2PIcon}/>
                 <GameModeButton 
