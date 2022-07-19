@@ -2,7 +2,7 @@
 
 describe.skip('Test Placement Mode', () => {
   it('allows a player to move their ships in placement mode', () => {
-    cy.visit("http://localhost:3000/");
+    cy.visit("http://localhost:3000/game/one-device");
 
     cy
       .get('[data-testid="ship-Cruiser"]')
@@ -49,7 +49,7 @@ describe("Test Playing Mode", () => {
   }
 
   it("allows user to play against another human player", () => {
-    cy.visit("http://localhost:3000/");
+    cy.visit("http://localhost:3000/game/one-device");
 
     //skip setup and positioning ships, ships will be in default positions for this game
     cy.contains('Done Placing Ships').click();
@@ -125,6 +125,10 @@ describe("Test Playing Mode", () => {
 
     cy.get(`[data-testid="square-${2}-${6}-${0}"]`).click(); //sinks player 2's battleship, winning the game
     
+    //check to make sure modal displays correct information
+    cy.contains('Player 2 has won!');
+    cy.contains('button', 'Rematch');
+    cy.contains('button', 'New Game');
   })
 });
 
