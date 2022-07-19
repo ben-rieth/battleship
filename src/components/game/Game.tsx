@@ -10,6 +10,7 @@ import Modal from "../modal/Modal";
 import Switch from "../switch/Switch";
 import GameWonModalContent from "../modal/GameWonModalContent";
 import Button from "../button/Button";
+import BoardContainer from "../board_container/BoardContainer";
 
 type GameMode = "place" | "play";
 
@@ -130,28 +131,31 @@ const Game = () => {
                     <div className={`block md:hidden ${mode === "place" && "invisible"}`}>
                         <Switch leftBtnText="Enemy's Board" rightBtnText="Your Board" handleClick={switchVisibleBoard}/>
                     </div>
-                    <div className={`flex flex-col items-center gap-1 ${boardVisible !== 1 ? "invisible md:visible order-2" : "order-1"}`}>
-                        <h2 className="font-bold text-3xl">{turn % 2 === 1 ? "Your Board" : "Enemy's Board"}</h2>
-                        <p>Player 1's Board</p>
-                        <Board id={1} 
-                            mode={mode} 
-                            showShips={turn % 2 === 1 && !usersSwitching} 
-                            canInteract={board1Clickable}
-                            reportAttack={handleAttack}
-                            reportShipSunk={handleSunkShip}
-                            reportAllSunk={handleGameOver}/>
-                    </div>
-                    <div className={`flex flex-col items-center gap-1 ${boardVisible !== 2 ? "invisible md:visible order-2" : "order-1"}`}> 
-                        <h2 className="font-bold text-3xl">{turn % 2 === 0 ? "Your Board" : "Enemy's Board"}</h2>
-                        <p>Player 2's Board</p>
-                        <Board id={2} 
-                            mode={mode} 
-                            showShips={turn % 2 === 0 && !usersSwitching} 
-                            canInteract={board2Clickable}
-                            reportAttack={handleAttack}
-                            reportShipSunk={handleSunkShip}
-                            reportAllSunk={handleGameOver}/>
-                    </div>
+                    <BoardContainer id={1} 
+                        isHidden={boardVisible !== 1} 
+                        isEnemyBoard={turn % 2 !== 1}
+                        board={
+                            <Board id={1} 
+                                mode={mode} 
+                                showShips={turn % 2 === 1 && !usersSwitching} 
+                                canInteract={board1Clickable}
+                                reportAttack={handleAttack}
+                                reportShipSunk={handleSunkShip}
+                                reportAllSunk={handleGameOver}/>}
+                    />
+                    <BoardContainer id={2}
+                        isHidden={boardVisible !== 2}
+                        isEnemyBoard={turn % 2 !== 0}
+                        board={
+                            <Board id={2} 
+                                mode={mode} 
+                                showShips={turn % 2 === 0 && !usersSwitching} 
+                                canInteract={board2Clickable}
+                                reportAttack={handleAttack}
+                                reportShipSunk={handleSunkShip}
+                                reportAllSunk={handleGameOver}/>
+                        }
+                    />
                 </div>
                 <div className={`${mode === "play" && "hidden"}`}>
                     <Button buttonText="Done Placing Ships" handleClick={finishPlacingShips}/>

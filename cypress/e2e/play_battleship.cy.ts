@@ -1,4 +1,4 @@
-import { createYield } from "typescript";
+///<reference types="cypress" />
 
 describe.skip('Test Placement Mode', () => {
   it('allows a player to move their ships in placement mode', () => {
@@ -127,3 +127,5 @@ describe("Test Playing Mode", () => {
     
   })
 });
+
+export {};
