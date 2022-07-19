@@ -1,9 +1,9 @@
 import React from 'react';
-import Game from './components/game/Game';
+import RouteSwitch from './pages/RouteSwitch';
 
 function App() {
   return (
-    <Game />
+    <RouteSwitch />
   );
 }
 
